@@ -1,0 +1,25 @@
+---
+type Alignment = "left" | "center" | "right";
+type Variant = "body" | "display" | "large-italic";
+
+interface Props {
+  align?: Alignment;
+  variant?: Variant;
+}
+
+const { align = "left", variant = "body" } = Astro.props;
+const alignments = new Set<Alignment>(["left", "center", "right"]);
+const variants = new Set<Variant>(["body", "display", "large-italic"]);
+
+if (!alignments.has(align)) {
+  throw new Error("TextBlock align must be left, center, or right.");
+}
+
+if (!variants.has(variant)) {
+  throw new Error("TextBlock variant must be body, display, or large-italic.");
+}
+---
+
+<section class:list={["text-block", `text-block--${align}`, `text-block--${variant}`]}>
+  <slot />
+</section>

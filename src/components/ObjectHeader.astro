@@ -1,0 +1,30 @@
+---
+import SiteLogo from "./SiteLogo.astro";
+
+interface Props {
+  title: string;
+  category?: string;
+  categoryLabel?: string;
+}
+
+const { title, category, categoryLabel } = Astro.props;
+---
+
+<header class="site-header site-header--object">
+  <SiteLogo />
+  <div class="object-header">
+    <a class="object-header__back" href="/" aria-label="Back to archive">
+      <svg viewBox="0 0 32 16" aria-hidden="true">
+        <path d="M8 1 1 8l7 7M1 8h30" />
+      </svg>
+    </a>
+    {
+      category && categoryLabel && (
+        <a class="object-header__category" href={`/?filter=${category}`}>
+          {categoryLabel}
+        </a>
+      )
+    }
+    <span class="object-header__title">{title} <span aria-hidden="true">#</span></span>
+  </div>
+</header>

@@ -1,0 +1,264 @@
+{
+  "project": {
+    "name": "Personal Modular Website",
+    "stage": "First practical implementation",
+    "objective": "Create a simple personal website where content is presented through a responsive modular grid.",
+    "core_principle": "simple implementation / strong concept",
+    "priority": "Build a working, clean and easily editable site without unnecessary engineering complexity."
+  },
+
+  "content": {
+    "categories": [
+      "projects",
+      "digest",
+      "notes",
+      "photos",
+      "antiblues"
+    ],
+
+    "filters": {
+      "required": true,
+      "default": "show-all",
+      "editable_in_code": true
+    },
+
+    "management": {
+      "admin_panel": false,
+      "cms": false,
+      "database": false,
+      "manual_editing": true,
+      "goal": "The site owner should be able to add and edit content directly in the repository without copying large HTML templates."
+    }
+  },
+
+  "homepage": {
+    "top_bar": {
+      "type": "narrow filter bar",
+      "sticky": true,
+      "items": [
+        "Show All",
+        "Projects",
+        "Digest",
+        "Notes",
+        "Photos",
+        "Antiblues"
+      ]
+    },
+
+    "persistent_modules": [
+      "About",
+      "Contacts"
+    ],
+
+    "persistent_modules_behavior": "About and Contacts are normal grid modules but always appear before content items.",
+
+    "content_card": {
+      "visual_content": "image or visual media",
+      "text": "title only",
+      "desktop_title": "visible on hover",
+      "mobile_title": "always visible",
+      "click": "open object page"
+    }
+  },
+
+  "grid": {
+    "technology_preference": "native CSS Grid",
+
+    "base_unit": {
+      "preferred_shape": "square",
+      "strict_requirement": false
+    },
+
+    "responsive_columns": {
+      "mobile": "1-2",
+      "tablet": 4,
+      "desktop": 6,
+      "wide": 8
+    },
+
+    "responsive_note": "Column count must react to viewport width rather than fixed physical module sizes.",
+
+    "module_size": {
+      "controlled_by_author": true,
+      "preferred_schema": {
+        "cols": "integer",
+        "rows": "integer"
+      },
+
+      "common_sizes": [
+        "1x1",
+        "2x1",
+        "1x2",
+        "2x2"
+      ],
+
+      "larger_sizes": {
+        "allowed": true,
+        "examples": [
+          "3x1",
+          "2x4",
+          "4x4"
+        ],
+        "rule": "Allow larger spans when native CSS Grid handles them naturally. Do not build special infrastructure for them."
+      }
+    },
+
+    "packing": {
+      "automatic": true,
+      "perfect_packing_required": false,
+      "empty_cells_allowed": true,
+      "custom_layout_engine": false
+    }
+  },
+
+  "filtering": {
+    "behavior": "Selecting a category hides unrelated content and lets the CSS Grid naturally repack remaining modules.",
+    "animation_required": false,
+    "new_categories": "A category and its filter should be easy to add manually in one clearly documented location."
+  },
+
+  "object_pages": {
+    "required": true,
+
+    "url_structure": {
+      "preferred": "/{category}/{slug}",
+      "examples": [
+        "/projects/project-name",
+        "/notes/note-name",
+        "/digest/issue-name"
+      ]
+    },
+
+    "design": "Simple editorial storytelling page inspired by independent design studio websites.",
+
+    "content_types": [
+      "text",
+      "images",
+      "GIF",
+      "video",
+      "YouTube or similar embeds"
+    ],
+
+    "layout": {
+      "type": "sequential editorial flow",
+      "grid_relationship": "When multiple images appear together, reuse the modular grid logic where practical.",
+      "complex_gallery_system": false
+    },
+
+    "related_content": false
+  },
+
+  "content_model": {
+    "goal": "Separate content/data from presentation components.",
+
+    "example": {
+      "title": "Project Name",
+      "slug": "project-name",
+      "category": "projects",
+      "thumbnail": "/images/project-name/cover.jpg",
+      "cols": 2,
+      "rows": 1
+    },
+
+    "requirements": [
+      "Adding a new item should be straightforward.",
+      "Changing module size should require editing simple metadata.",
+      "Adding a category should not require rewriting the architecture.",
+      "Content structure must be easy for a non-expert owner to understand."
+    ]
+  },
+
+  "technology": {
+    "decision_status": "Not final",
+
+    "preferred_candidate": "Astro + Markdown/MDX + CSS Grid",
+
+    "reason_for_candidate": [
+      "content-heavy static website",
+      "very little client-side JavaScript required",
+      "content can remain separate from components",
+      "static pages can be generated from files",
+      "no database required",
+      "no CMS required"
+    ],
+
+    "instruction": "Do not choose Astro automatically. During /grill-me compare it against an even simpler implementation. Choose the solution that makes the project easiest to build, edit and maintain while preserving the required content workflow.",
+
+    "dependencies": "Minimize dependencies."
+  },
+
+  "responsive": {
+    "wide_desktop": "approximately 8 columns",
+    "desktop": "approximately 6 columns",
+    "tablet": "approximately 4 columns",
+    "mobile": "1-2 columns",
+
+    "mobile_rule": "Simplify the composition into a readable vertical flow.",
+
+    "horizontal_scroll": false
+  },
+
+  "design": {
+    "direction": [
+      "Swiss",
+      "radical minimalism",
+      "functional",
+      "editorial",
+      "slightly brutal"
+    ],
+
+    "priorities": [
+      "structure",
+      "typography",
+      "spacing",
+      "function",
+      "clarity"
+    ],
+
+    "avoid": [
+      "decorative UI effects",
+      "glassmorphism",
+      "gradients without functional reason",
+      "complex animation",
+      "portfolio-template aesthetics",
+      "unnecessary cards",
+      "heavy design systems"
+    ]
+  },
+
+  "explicitly_out_of_scope": [
+    "CMS",
+    "admin panel",
+    "database unless technically unavoidable",
+    "authentication",
+    "user accounts",
+    "node editor",
+    "visual layout editor",
+    "drag-and-drop interface",
+    "generic page builder",
+    "plugin architecture",
+    "universal object system",
+    "graph database",
+    "social features",
+    "recommendation system",
+    "animation framework",
+    "perfect grid packing algorithm"
+  ],
+
+  "acceptance_criteria": [
+    "The homepage feels like one modular spatial system rather than a standard portfolio template.",
+    "The grid responds approximately from 1-2 columns on mobile to 8 columns on wide screens.",
+    "The author controls module width and height through simple metadata.",
+    "Filtering works without requiring perfect grid packing.",
+    "Empty grid cells are acceptable.",
+    "About and Contacts always appear first.",
+    "The filter bar remains visible while scrolling.",
+    "Cards contain only visual media and a title overlay.",
+    "Desktop titles appear on hover.",
+    "Mobile titles remain visible.",
+    "Each content item can have its own readable URL.",
+    "Object pages support simple editorial storytelling.",
+    "Adding content does not require copying large HTML structures.",
+    "No unnecessary platform architecture is introduced."
+  ]
+}

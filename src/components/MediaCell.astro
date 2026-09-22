@@ -1,0 +1,23 @@
+---
+interface Props {
+  cols?: number;
+  rows?: number;
+}
+
+const { cols = 1, rows = 1 } = Astro.props;
+
+if (!Number.isInteger(cols) || cols < 1 || cols > 4) {
+  throw new Error("MediaCell cols must be an integer from 1 to 4.");
+}
+
+if (!Number.isInteger(rows) || rows < 1 || rows > 4) {
+  throw new Error("MediaCell rows must be an integer from 1 to 4.");
+}
+---
+
+<div
+  class="media-cell"
+  style={`--media-cols:${cols};--media-rows:${rows}`}
+>
+  <slot />
+</div>

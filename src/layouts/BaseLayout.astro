@@ -1,0 +1,35 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  designContract?: string;
+}
+
+const {
+  title = "FARBER",
+  description = "A personal modular archive.",
+  designContract,
+} = Astro.props;
+
+const pageTitle = title === "FARBER" ? title : `${title} — FARBER`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <Fragment set:html={designContract ? `<!-- ${designContract} -->` : ""} />
+    <slot />
+  </body>
+</html>

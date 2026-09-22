@@ -1,0 +1,18 @@
+---
+import { getEntry, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ObjectHeader from "../components/ObjectHeader.astro";
+import TextBlock from "../components/TextBlock.astro";
+
+const entry = await getEntry("staticPages", "contacts");
+if (!entry) throw new Error("Missing src/content/static/contacts.mdx");
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.description}>
+  <ObjectHeader title={entry.data.title} />
+  <main class="static-page">
+    <h1>{entry.data.title}</h1>
+    <article class="object-body"><Content components={{ TextBlock }} /></article>
+  </main>
+</BaseLayout>

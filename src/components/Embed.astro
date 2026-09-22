@@ -1,0 +1,41 @@
+---
+interface Props {
+  url: string;
+  title?: string;
+}
+
+const { url, title = "Embedded video" } = Astro.props;
+const parsed = new URL(url);
+let embedUrl = "";
+
+if (parsed.hostname === "youtu.be") {
+  const videoId = parsed.pathname.slice(1);
+  if (!videoId) throw new Error(`Invalid YouTube URL: ${url}`);
+  embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
+} else if (
+  parsed.hostname === "youtube.com" ||
+  parsed.hostname === "www.youtube.com"
+) {
+  const videoId = parsed.searchParams.get("v") ?? parsed.pathname.split("/").pop();
+  if (!videoId) throw new Error(`Invalid YouTube URL: ${url}`);
+  embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
+} else if (parsed.hostname === "vimeo.com" || parsed.hostname === "www.vimeo.com") {
+  const videoId = parsed.pathname.split("/").filter(Boolean).pop();
+  if (!videoId || !/^\d+$/.test(videoId)) {
+    throw new Error(`Invalid Vimeo URL: ${url}`);
+  }
+  embedUrl = `https://player.vimeo.com/video/${videoId}`;
+} else {
+  throw new Error(`Unsupported embed host: ${parsed.hostname}`);
+}
+---
+
+<figure class="embed-block">
+  <iframe
+    src={embedUrl}
+    title={title}
+    loading="lazy"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen
+  ></iframe>
+</figure>

@@ -1,0 +1,45 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MediaGrid from "../../components/MediaGrid.astro";
+import MediaCell from "../../components/MediaCell.astro";
+import Video from "../../components/Video.astro";
+import Embed from "../../components/Embed.astro";
+import ObjectHeader from "../../components/ObjectHeader.astro";
+import TextBlock from "../../components/TextBlock.astro";
+import { getCategoryLabel } from "../../config/categories";
+import { parseItemId } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const items = await getCollection("items");
+
+  return items.map((entry) => {
+    const { category, slug } = parseItemId(entry.id);
+    return { params: { category, slug }, props: { entry } };
+  });
+}
+
+interface Props {
+  entry: CollectionEntry<"items">;
+}
+
+const { entry } = Astro.props;
+const { category } = parseItemId(entry.id);
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.description}>
+  <ObjectHeader
+    title={entry.data.title}
+    category={category}
+    categoryLabel={getCategoryLabel(category)}
+  />
+
+  <main class="object-page">
+    <h1>{entry.data.title}</h1>
+    {entry.data.description && <p class="object-deck">{entry.data.description}</p>}
+    <article class="object-body">
+      <Content components={{ MediaGrid, MediaCell, Video, Embed, TextBlock }} />
+    </article>
+  </main>
+</BaseLayout>

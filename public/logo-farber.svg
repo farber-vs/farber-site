@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4519.72 633.99" role="img" aria-labelledby="title">
+  <title id="title">Farber</title>
+  <g fill="#010101">
+    <g>
+      <rect width="158.5" height="633.99"/>
+      <rect x="237.74" y="-237.74" width="158.5" height="633.99" transform="translate(237.74 396.24) rotate(-90)"/>
+      <rect x="198.12" y="118.87" width="158.5" height="554.74" transform="translate(-118.87 673.61) rotate(-90)"/>
+    </g>
+    <g>
+      <rect x="1742.71" y="-237.74" width="158.5" height="633.99" transform="translate(1742.7077 1901.2041) rotate(-90)"/>
+      <rect x="1742.71" y="79.25" width="158.5" height="633.99" transform="translate(1425.7151 2218.1967) rotate(-90)"/>
+      <rect x="1504.96" width="158.5" height="633.99"/>
+      <polygon points="2138.95 633.99 1960.45 633.99 1801.96 316.99 1980.45 316.99 2138.95 633.99"/>
+      <rect x="1980.45" width="158.5" height="471.62"/>
+    </g>
+    <g>
+      <rect x="950.23" y="-237.74" width="158.5" height="633.99" transform="translate(950.2261 1108.7224) rotate(-90)"/>
+      <rect x="950.23" y="79.25" width="158.5" height="633.99" transform="translate(633.2335 1425.7151) rotate(-90)"/>
+      <rect x="712.48" width="158.5" height="633.99"/>
+      <rect x="1187.97" width="158.5" height="633.99"/>
+      <rect x="1187.97" width="158.5" height="471.62"/>
+    </g>
+    <g>
+      <rect x="2488.8" y="-198.12" width="158.5" height="554.74" transform="translate(2488.8002 2647.2965) rotate(-90)"/>
+      <rect x="2528.42" width="158.5" height="633.99" transform="translate(2290.6798 2924.6651) rotate(-90)"/>
+      <rect x="2528.42" y="237.74" width="158.5" height="633.99" transform="translate(2052.9353 3162.4096) rotate(-90)"/>
+      <rect x="2290.68" width="158.5" height="633.99"/>
+      <rect x="2686.92" width="158.5" height="277.37"/>
+      <rect x="2845.42" y="237.74" width="158.5" height="396.24"/>
+    </g>
+    <g>
+      <rect x="4123.47" y="-237.74" width="158.5" height="633.99" transform="translate(4123.4745 4281.9709) rotate(-90)"/>
+      <rect x="4123.47" y="79.25" width="158.5" height="633.99" transform="translate(3806.4819 4598.9635) rotate(-90)"/>
+      <polygon points="4519.72 633.99 4341.22 633.99 4182.72 316.99 4361.22 316.99 4519.72 633.99"/>
+      <rect x="4361.22" width="158.5" height="471.62"/>
+      <rect x="3885.73" y="198.12" width="158.5" height="435.86"/>
+      <rect x="3885.73" width="158.5" height="633.99"/>
+    </g>
+    <g>
+      <rect x="3144.47" width="158.5" height="633.99"/>
+      <rect x="3382.22" y="-237.74" width="158.5" height="633.99" transform="translate(3382.2178 3540.7141) rotate(-90)"/>
+      <rect x="3382.22" y="237.74" width="158.5" height="633.99" transform="translate(2906.7288 4016.2031) rotate(-90)"/>
+      <rect x="3342.59" y="39.62" width="158.5" height="554.74" transform="translate(3104.8492 3738.8345) rotate(-90)"/>
+    </g>
+  </g>
+</svg>

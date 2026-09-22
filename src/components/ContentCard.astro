@@ -1,0 +1,31 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import { parseItemId } from "../lib/content";
+
+interface Props {
+  entry: CollectionEntry<"items">;
+}
+
+const { entry } = Astro.props;
+const { category, slug } = parseItemId(entry.id);
+---
+
+<article
+  class="content-card"
+  data-filterable
+  data-category={category}
+  data-cols={entry.data.cols}
+  data-rows={entry.data.rows}
+>
+  <a href={`/${category}/${slug}/`} aria-label={entry.data.title}>
+    <Image
+      src={entry.data.cover}
+      alt=""
+      widths={[360, 720, 1080, 1440]}
+      sizes="(max-width: 479px) 100vw, (max-width: 767px) 50vw, 50vw"
+      loading="lazy"
+    />
+    <span>{entry.data.title}</span>
+  </a>
+</article>

@@ -1,0 +1,28 @@
+---
+import type { CollectionEntry } from "astro:content";
+import ContentCard from "./ContentCard.astro";
+
+interface Props {
+  items: CollectionEntry<"items">[];
+}
+
+const { items } = Astro.props;
+---
+
+<main class="homepage-grid" data-content-grid>
+  <article class="persistent-card persistent-card--about">
+    <a href="/about/">
+      <span>About</span>
+      <small>Profile &amp; practice</small>
+    </a>
+  </article>
+
+  <article class="persistent-card persistent-card--contacts">
+    <a href="/contacts/">
+      <span>Contacts</span>
+      <small>Write, call, follow</small>
+    </a>
+  </article>
+
+  {items.map((entry) => <ContentCard entry={entry} />)}
+</main>

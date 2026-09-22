@@ -1,0 +1,153 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { categories } from "../../config/categories";
+import { farberMenu, mapCenter, mapPositions } from "../../config/farber-map";
+import "../../styles/farber-map.css";
+
+const items = (await getCollection("items")).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+
+const nodes = categories.map((category) => ({
+  ...category,
+  ...mapPositions[category.slug],
+  items: items.filter((item) => item.id.split("/")[0] === category.slug).slice(0, 5),
+}));
+
+const designContract = `
+THESIS: FARBER is navigation experienced at two distances: a working menu close up and a field of connected practices from afar; it refuses a conventional portfolio hero.
+OWN-WORLD: warm paper, near-black type, muted clay accents, flat editorial modules, hairline connectors, and the existing FARBER wordmark.
+STORY: enter through FARBER, choose a section, or zoom out to understand how the archive's practices relate.
+FIRST VIEWPORT: the FARBER module occupies the center at architectural scale; compact controls sit at the edges; peripheral modules remain beyond the initial frame until zoom out.
+FORM: code-led spatial index, primary structure; seed key FARBER-FIELD-01.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+`;
+---
+
+<BaseLayout
+  title="Connected practices"
+  description="A spatial index of FARBER workshops, practices, and archive sections."
+  designContract={designContract}
+>
+  <main class="farber-map" data-map data-view="focus">
+    <header class="map-header">
+      <a class="map-back" href="/" aria-label="Back to the archive">
+        <svg viewBox="0 0 32 18" aria-hidden="true">
+          <path d="M9 2 2 9l7 7M2 9h28"></path>
+        </svg>
+        <span>Archive</span>
+      </a>
+      <p aria-live="polite" data-view-label>FARBER / close view</p>
+    </header>
+
+    <div class="map-viewport" data-viewport>
+      <div class="map-world" data-world>
+        <svg class="map-connectors" viewBox="0 0 1500 900" aria-hidden="true">
+          {
+            nodes.map((node) => (
+              <line
+                x1={mapCenter.x}
+                y1={mapCenter.y}
+                x2={node.x + node.width / 2}
+                y2={node.y + 100}
+              />
+            ))
+          }
+        </svg>
+
+        <section class="farber-hub" aria-labelledby="farber-title">
+          <div class="farber-hub__identity">
+            <img src="/logo-farber.svg" alt="FARBER" width="4519" height="634" />
+            <p id="farber-title">Visual systems</p>
+          </div>
+          <nav class="farber-hub__menu" aria-label="FARBER sections">
+            {
+              farberMenu.map((item) => (
+                <a href={item.href}>
+                  <span>{item.label}</span>
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <path d="M4 10h11M11 5l5 5-5 5"></path>
+                  </svg>
+                </a>
+              ))
+            }
+          </nav>
+        </section>
+
+        {
+          nodes.map((node) => (
+            <section
+              class="practice-node"
+              style={`--node-x:${node.x}px;--node-y:${node.y}px;--node-width:${node.width}px`}
+              aria-labelledby={`node-${node.slug}`}
+            >
+              <header>
+                <p>Practice</p>
+                <a href={`/?filter=${node.slug}`} id={`node-${node.slug}`}>
+                  {node.label}
+                </a>
+              </header>
+              <ol>
+                {node.items.length > 0 ? (
+                  node.items.map((item) => (
+                    <li>
+                      <a href={`/${item.id}/`}>{item.data.title}</a>
+                    </li>
+                  ))
+                ) : (
+                  <li class="practice-node__empty">
+                    <a href={`/?filter=${node.slug}`}>Open section</a>
+                  </li>
+                )}
+              </ol>
+            </section>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="map-controls" aria-label="Map scale">
+      <button type="button" data-action="focus" aria-pressed="true">Focus</button>
+      <button type="button" data-action="overview" aria-pressed="false">Zoom out</button>
+    </div>
+
+    <p class="map-hint">Choose a section or change the distance.</p>
+  </main>
+
+  <script>
+    const map = document.querySelector("[data-map]");
+    const world = document.querySelector("[data-world]");
+    const label = document.querySelector("[data-view-label]");
+    const buttons = [...document.querySelectorAll("[data-action]")];
+
+    if (map instanceof HTMLElement && world instanceof HTMLElement) {
+      const setView = (view) => {
+        const overview = view === "overview";
+        map.dataset.view = view;
+        label.textContent = overview ? "All practices / overview" : "FARBER / close view";
+        buttons.forEach((button) => {
+          button.setAttribute("aria-pressed", String(button.dataset.action === view));
+        });
+
+        document.querySelectorAll(".practice-node").forEach((node) => {
+          node.toggleAttribute("inert", !overview);
+          node.setAttribute("aria-hidden", String(!overview));
+        });
+
+        const focusScale = window.innerWidth <= 720
+          ? Math.min(0.94, window.innerWidth / 400, (window.innerHeight - 90) / 720)
+          : Math.min(1.22, window.innerWidth / 760, window.innerHeight / 650);
+        const overviewScale = Math.min(0.84, window.innerWidth / 1560, window.innerHeight / 960);
+        world.style.setProperty("--map-scale", String(overview ? overviewScale : focusScale));
+      };
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => setView(button.dataset.action));
+      });
+
+      window.addEventListener("resize", () => setView(map.dataset.view || "focus"));
+      setView("focus");
+    }
+  </script>
+</BaseLayout>

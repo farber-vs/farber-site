@@ -1,0 +1,20 @@
+---
+import { categories } from "../config/categories";
+import SiteLogo from "./SiteLogo.astro";
+---
+
+<header class="site-header site-header--home">
+  <SiteLogo />
+  <nav class="filter-bar" aria-label="Content filters">
+    <a href="/?filter=show-all" data-filter-link="show-all" aria-current="page">
+      Show All
+    </a>
+    {
+      categories.map((category) => (
+        <a href={`/?filter=${category.slug}`} data-filter-link={category.slug}>
+          {category.label}
+        </a>
+      ))
+    }
+  </nav>
+</header>
