@@ -1,0 +1,55 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="description" content="A personal modular archive."><meta name="generator" content="Astro v7.2.0"><title>FARBER</title><link rel="stylesheet" href="/farber-site/_astro/BaseLayout.CyXBtSzI.css"></head><body><header class="site-header site-header--home"><a class="site-logo" href="/farber-site/" aria-label="Farber — home"><img src="/farber-site/logo-farber.svg" alt="Farber" width="4519" height="634"></a><nav class="filter-bar" aria-label="Content filters"><a href="/farber-site/?filter=show-all" data-filter-link="show-all" aria-current="page">Show All</a><a href="/farber-site/?filter=projects" data-filter-link="projects">Projects</a><a href="/farber-site/?filter=digest" data-filter-link="digest">Digest</a><a href="/farber-site/?filter=notes" data-filter-link="notes">Notes</a><a href="/farber-site/?filter=photos" data-filter-link="photos">Photos</a><a href="/farber-site/?filter=antiblues" data-filter-link="antiblues">Antiblues</a></nav></header><main class="homepage-grid" data-content-grid><article class="persistent-card persistent-card--about"><a href="/farber-site/about/"><span>About</span><small>Profile &amp; practice</small></a></article><article class="persistent-card persistent-card--contacts"><a href="/farber-site/contacts/"><span>Contacts</span><small>Write, call, follow</small></a></article><article class="content-card" data-filterable data-category="projects" data-cols="2" data-rows="2"><a href="/farber-site/projects/modular-archive/" aria-label="Modular Archive"><img src="/farber-site/_astro/cover.DcItsp3W_kkUKa.webp" srcset="/farber-site/_astro/cover.DcItsp3W_1uDfu5.webp 360w, /farber-site/_astro/cover.DcItsp3W_2tozyc.webp 720w, /farber-site/_astro/cover.DcItsp3W_1TOIAe.webp 1080w, /farber-site/_astro/cover.DcItsp3W_kkUKa.webp 1200w" alt sizes="(max-width: 479px) 100vw, (max-width: 767px) 50vw, 50vw" loading="lazy" decoding="async" width="1200" height="1200"><span>Modular Archive</span></a></article><article class="content-card" data-filterable data-category="digest" data-cols="2" data-rows="1"><a href="/farber-site/digest/issue-001/" aria-label="Digest 001"><img src="/farber-site/_astro/cover.DcItsp3W_kkUKa.webp" srcset="/farber-site/_astro/cover.DcItsp3W_1uDfu5.webp 360w, /farber-site/_astro/cover.DcItsp3W_2tozyc.webp 720w, /farber-site/_astro/cover.DcItsp3W_1TOIAe.webp 1080w, /farber-site/_astro/cover.DcItsp3W_kkUKa.webp 1200w" alt sizes="(max-width: 479px) 100vw, (max-width: 767px) 50vw, 50vw" loading="lazy" decoding="async" width="1200" height="1200"><span>Digest 001</span></a></article><article class="content-card" data-filterable data-category="notes" data-cols="1" data-rows="1"><a href="/farber-site/notes/on-empty-cells/" aria-label="On Empty Cells"><img src="/farber-site/_astro/cover.DcItsp3W_kkUKa.webp" srcset="/farber-site/_astro/cover.DcItsp3W_1uDfu5.webp 360w, /farber-site/_astro/cover.DcItsp3W_2tozyc.webp 720w, /farber-site/_astro/cover.DcItsp3W_1TOIAe.webp 1080w, /farber-site/_astro/cover.DcItsp3W_kkUKa.webp 1200w" alt sizes="(max-width: 479px) 100vw, (max-width: 767px) 50vw, 50vw" loading="lazy" decoding="async" width="1200" height="1200"><span>On Empty Cells</span></a></article><article class="content-card" data-filterable data-category="photos" data-cols="1" data-rows="2"><a href="/farber-site/photos/registration-marks/" aria-label="Registration Marks"><img src="/farber-site/_astro/cover.DcItsp3W_kkUKa.webp" srcset="/farber-site/_astro/cover.DcItsp3W_1uDfu5.webp 360w, /farber-site/_astro/cover.DcItsp3W_2tozyc.webp 720w, /farber-site/_astro/cover.DcItsp3W_1TOIAe.webp 1080w, /farber-site/_astro/cover.DcItsp3W_kkUKa.webp 1200w" alt sizes="(max-width: 479px) 100vw, (max-width: 767px) 50vw, 50vw" loading="lazy" decoding="async" width="1200" height="1200"><span>Registration Marks</span></a></article><article class="content-card" data-filterable data-category="antiblues" data-cols="3" data-rows="1"><a href="/farber-site/antiblues/field-note-001/" aria-label="Antiblues — Field Note 001"><img src="/farber-site/_astro/cover.DcItsp3W_kkUKa.webp" srcset="/farber-site/_astro/cover.DcItsp3W_1uDfu5.webp 360w, /farber-site/_astro/cover.DcItsp3W_2tozyc.webp 720w, /farber-site/_astro/cover.DcItsp3W_1TOIAe.webp 1080w, /farber-site/_astro/cover.DcItsp3W_kkUKa.webp 1200w" alt sizes="(max-width: 479px) 100vw, (max-width: 767px) 50vw, 50vw" loading="lazy" decoding="async" width="1200" height="1200"><span>Antiblues — Field Note 001</span></a></article></main><script>(function(){const filterSlugs = ["projects","digest","notes","photos","antiblues"];
+
+    const validFilters = new Set(["show-all", ...filterSlugs]);
+    const links = [...document.querySelectorAll("[data-filter-link]")];
+    const cards = [...document.querySelectorAll("[data-filterable]")];
+
+    function readFilter() {
+      const value = new URLSearchParams(window.location.search).get("filter");
+      return value && validFilters.has(value) ? value : "show-all";
+    }
+
+    function applyFilter(filter) {
+      cards.forEach((card) => {
+        card.hidden = filter !== "show-all" && card.dataset.category !== filter;
+      });
+
+      links.forEach((link) => {
+        if (link.dataset.filterLink === filter) {
+          link.setAttribute("aria-current", "page");
+        } else {
+          link.removeAttribute("aria-current");
+        }
+      });
+    }
+
+    links.forEach((link) => {
+      link.addEventListener("click", (event) => {
+        if (
+          event.button !== 0 ||
+          event.metaKey ||
+          event.ctrlKey ||
+          event.shiftKey ||
+          event.altKey
+        ) {
+          return;
+        }
+
+        event.preventDefault();
+        const filter = link.dataset.filterLink;
+        const url = new URL(window.location.href);
+
+        if (filter === "show-all") {
+          url.searchParams.delete("filter");
+        } else {
+          url.searchParams.set("filter", filter);
+        }
+
+        window.history.pushState({ filter }, "", url);
+        applyFilter(filter);
+      });
+    });
+
+    window.addEventListener("popstate", () => applyFilter(readFilter()));
+    applyFilter(readFilter());
+  })();</script></body></html>
