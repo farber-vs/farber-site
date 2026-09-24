@@ -1,13 +1,15 @@
 import { categories } from "./categories";
 
+const base = import.meta.env.BASE_URL;
+
 export const farberMenu = [
-  { label: "Archive", href: "/" },
+  { label: "Archive", href: base },
   ...categories.map((category) => ({
     label: category.label,
-    href: `/?filter=${category.slug}`,
+    href: `${base}?filter=${category.slug}`,
   })),
-  { label: "About", href: "/about/" },
-  { label: "Contacts", href: "/contacts/" },
+  { label: "About", href: `${base}about/` },
+  { label: "Contacts", href: `${base}contacts/` },
 ];
 
 export const mapPositions: Record<

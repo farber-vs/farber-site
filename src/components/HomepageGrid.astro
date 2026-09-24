@@ -11,14 +11,14 @@ const { items } = Astro.props;
 
 <main class="homepage-grid" data-content-grid>
   <article class="persistent-card persistent-card--about">
-    <a href="/about/">
+    <a href={`${import.meta.env.BASE_URL}about/`}>
       <span>About</span>
       <small>Profile &amp; practice</small>
     </a>
   </article>
 
   <article class="persistent-card persistent-card--contacts">
-    <a href="/contacts/">
+    <a href={`${import.meta.env.BASE_URL}contacts/`}>
       <span>Contacts</span>
       <small>Write, call, follow</small>
     </a>

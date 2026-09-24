@@ -32,7 +32,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 >
   <main class="farber-map" data-map data-view="focus">
     <header class="map-header">
-      <a class="map-back" href="/" aria-label="Back to the archive">
+      <a class="map-back" href={import.meta.env.BASE_URL} aria-label="Back to the archive">
         <svg viewBox="0 0 32 18" aria-hidden="true">
           <path d="M9 2 2 9l7 7M2 9h28"></path>
         </svg>
@@ -58,7 +58,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 
         <section class="farber-hub" aria-labelledby="farber-title">
           <div class="farber-hub__identity">
-            <img src="/logo-farber.svg" alt="FARBER" width="4519" height="634" />
+            <img src={`${import.meta.env.BASE_URL}logo-farber.svg`} alt="FARBER" width="4519" height="634" />
             <p id="farber-title">Visual systems</p>
           </div>
           <nav class="farber-hub__menu" aria-label="FARBER sections">
@@ -84,7 +84,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
             >
               <header>
                 <p>Practice</p>
-                <a href={`/?filter=${node.slug}`} id={`node-${node.slug}`}>
+                <a href={`${import.meta.env.BASE_URL}?filter=${node.slug}`} id={`node-${node.slug}`}>
                   {node.label}
                 </a>
               </header>
@@ -92,12 +92,12 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
                 {node.items.length > 0 ? (
                   node.items.map((item) => (
                     <li>
-                      <a href={`/${item.id}/`}>{item.data.title}</a>
+                      <a href={`${import.meta.env.BASE_URL}${item.id}/`}>{item.data.title}</a>
                     </li>
                   ))
                 ) : (
                   <li class="practice-node__empty">
-                    <a href={`/?filter=${node.slug}`}>Open section</a>
+                    <a href={`${import.meta.env.BASE_URL}?filter=${node.slug}`}>Open section</a>
                   </li>
                 )}
               </ol>

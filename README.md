@@ -11,7 +11,7 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-Open the local address printed in the terminal (normally `http://localhost:4321/`).
+Open the local address printed in the terminal (normally `http://localhost:4321/farber-site/`).
 Keep the terminal process running while using the site. Content changes appear
 automatically after saving a file.
 
@@ -33,8 +33,30 @@ placeholders, and demo entries before a public launch.
 Source code, content, media, documentation, and the pnpm lockfile belong in Git.
 Dependencies, generated output, local environment files, Obsidian settings,
 and local design-review reports are excluded through `.gitignore`.
-Uploading this repository to GitHub stores the source; it does not publish a
-live website automatically.
+
+## Publish to GitHub Pages
+
+Public website: https://farber-vs.github.io/farber-site/
+
+The `main` branch contains the source. The `gh-pages` branch contains only the
+compiled static site. GitHub Pages serves that branch from its root directory;
+`public/.nojekyll` keeps generated `_astro/` assets accessible.
+
+After editing and checking the content, commit and push the source changes,
+then publish from a terminal with authenticated Git access:
+
+```sh
+pnpm deploy
+```
+
+This rebuilds the site and updates `gh-pages` without force-pushing or changing
+your working branch. The source must have no uncommitted changes. GitHub Pages
+may take a few minutes to serve the new build. Pushing `main` alone does not
+update the live site.
+
+The `/farber-site/` prefix is configured once in `astro.config.mjs`. Internal
+links and the logo use `import.meta.env.BASE_URL`, so they also work on nested
+pages. The route examples below are relative to this prefix.
 
 ## Add a content item
 

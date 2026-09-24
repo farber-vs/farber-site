@@ -18,7 +18,7 @@ const { category, slug } = parseItemId(entry.id);
   data-cols={entry.data.cols}
   data-rows={entry.data.rows}
 >
-  <a href={`/${category}/${slug}/`} aria-label={entry.data.title}>
+  <a href={`${import.meta.env.BASE_URL}${category}/${slug}/`} aria-label={entry.data.title}>
     <Image
       src={entry.data.cover}
       alt=""
