@@ -1,7 +1,7 @@
 {
   "project": {
     "name": "Personal Modular Website",
-    "stage": "First practical implementation",
+    "stage": "Content MVP: one project, one article, About and Contacts",
     "objective": "Create a simple personal website where content is presented through a responsive modular grid.",
     "core_principle": "simple implementation / strong concept",
     "priority": "Build a working, clean and easily editable site without unnecessary engineering complexity."
@@ -10,10 +10,7 @@
   "content": {
     "categories": [
       "projects",
-      "digest",
-      "notes",
-      "photos",
-      "antiblues"
+      "articles"
     ],
 
     "filters": {
@@ -38,10 +35,7 @@
       "items": [
         "Show All",
         "Projects",
-        "Digest",
-        "Notes",
-        "Photos",
-        "Antiblues"
+        "Articles"
       ]
     },
 
@@ -124,8 +118,7 @@
       "preferred": "/{category}/{slug}",
       "examples": [
         "/projects/project-name",
-        "/notes/note-name",
-        "/digest/issue-name"
+        "/articles/article-name"
       ]
     },
 
@@ -169,7 +162,7 @@
   },
 
   "technology": {
-    "decision_status": "Not final",
+    "decision_status": "Implemented: Astro + MDX + native CSS Grid, static GitHub Pages hosting",
 
     "preferred_candidate": "Astro + Markdown/MDX + CSS Grid",
 
@@ -182,7 +175,7 @@
       "no CMS required"
     ],
 
-    "instruction": "Do not choose Astro automatically. During /grill-me compare it against an even simpler implementation. Choose the solution that makes the project easiest to build, edit and maintain while preserving the required content workflow.",
+    "instruction": "Keep the existing static implementation simple. Content is manually authored in MDX; no CMS or new framework is needed for this MVP.",
 
     "dependencies": "Minimize dependencies."
   },

@@ -5,19 +5,21 @@ interface Props {
   title?: string;
   description?: string;
   designContract?: string;
+  language?: "en" | "ru";
 }
 
 const {
   title = "FARBER",
-  description = "A personal modular archive.",
+  description = "FARBER — independent design and art practice. Visual identities, projects and writing by Alexey Farber.",
   designContract,
+  language = "en",
 } = Astro.props;
 
 const pageTitle = title === "FARBER" ? title : `${title} — FARBER`;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={language}>
   <head>
     <meta charset="UTF-8" />
     <meta

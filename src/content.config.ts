@@ -16,6 +16,7 @@ const items = defineCollection({
       cols: z.number().int().min(1).max(8),
       rows: z.number().int().min(1).max(4),
       description: z.string().optional(),
+      language: z.enum(["en", "ru"]).default("en"),
     }),
 });
 

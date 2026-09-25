@@ -1,3 +1,10 @@
-<section class="media-grid" aria-label="Media group">
+---
+interface Props {
+  layout?: "modular" | "natural";
+}
+const { layout = "modular" } = Astro.props;
+---
+
+<section class:list={["media-grid", { "media-grid--natural": layout === "natural" }]} aria-label="Media group">
   <slot />
 </section>

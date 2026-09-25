@@ -8,39 +8,49 @@ web
 
 ## Users
 
-The primary user is the owner of a personal visual archive, who publishes and connects projects, notes, images, digests, and ongoing practices. Visitors explore the archive through spatial and editorial navigation rather than a conventional portfolio index.
+The owner manually publishes projects and writing from an independent design and art practice. Visitors browse the work, read individual pieces, learn about the practice, and find the single public email contact.
 
 ## Product Purpose
 
-The site presents a large, manually maintained body of work as a modular archive. A second, experimental FARBER surface makes the archive legible as a connected field of workshops and practices.
+The current content MVP presents two real entries in a modular archive: the Schiffman Supplies visual-identity case and the essay «Граница исчезла но осталась внутри». Its two categories are Projects and Articles; About and Contacts remain persistent homepage modules.
+
+A separate, experimental FARBER surface makes the configured archive categories legible as a connected field of practices. It is not the main editorial index or a new product platform.
 
 ## Positioning
 
-Navigation is treated as a visual system: content modules remain useful links at close range and become a map of related practices when the view is pulled back.
+Real work and writing lead the site. The homepage offers visual modules and simple category filters; individual entries use readable editorial pages. The separate FARBER experiment treats navigation as a visual system: a working menu close up and a map of related practices when the view is pulled back.
 
 ## Operating Context
 
-Content is authored as files in the repository and published as a static site. The FARBER map is a side project inside the same Astro codebase and may later connect more directly to the main archive.
+Content is authored as MDX files and local assets in the repository and built as a static site. The FARBER map is a side project inside the same Astro codebase, using the same category configuration and content collection. Publication is a deployment step, not an implied state of a local build.
 
 ## Capabilities and Constraints
 
 - Astro, MDX, and native CSS/JavaScript remain the implementation stack.
-- The existing archive homepage remains unchanged.
+- Preserve the homepage's modular grid and editorial templates while replacing demonstration entries with real content.
+- Projects and Articles are the current category scope. About and Contacts are static pages, not categories, and remain visible when filtering.
+- The Russian essay sets the document language to Russian; its supplied English version uses a native disclosure. The case, About, Contacts, and interface copy are English.
+- Contacts contains only the authorized email address, with no form, social profiles, or additional contact channels.
+- Item dates record site publication and sort the archive; they do not establish a historical project year. Omit unconfirmed years, collaborators, and outcome claims. Label proposed applications as visualisations.
+- Demonstration entries are retained under `docs/examples/items/`, outside the rendered content collection.
 - The historical `web5.0/01main` prototype remains unchanged and serves only as evidence of the FARBER navigation idea.
 - FARBER is a separate route whose central menu adapts to configured categories and content.
 - Zooming out reveals connected modules without a graph database, canvas framework, or custom layout engine.
 - The first version must remain static, responsive, keyboard accessible, and manually editable.
+- No CMS, admin panel, accounts, database, generic page builder, or new animation system is in scope.
 
 ## Brand Commitments
 
-The FARBER name and supplied FARBER logo are preserved. The new surface inherits the restrained, Swiss, editorial visual language of the current site rather than the styling of the historical prototype.
+The FARBER name and supplied FARBER logo are preserved. Warm paper, native sans-serif type, square modules, and restrained Swiss editorial structure remain the established visual world. This content extension does not introduce a new font, palette, or animation. The FARBER map inherits the current site's language rather than the styling of the historical prototype.
 
 ## Evidence on Hand
 
 - Current site implementation in `src/`.
 - Product specification in `docs/site-spec.json`.
+- Current entry content in `src/content/items/` and static copy in `src/content/static/`.
+- Route-specific authoring and layout decisions in `docs/editorial-layout.md`.
 - FARBER logo in `public/logo-farber.svg`.
-- Historical concept prototype at `_WEB_good/web5.0/01main/` outside this project.
+- The historical concept prototype, retained separately from this project.
 
 ## Product Principles
 
@@ -49,4 +59,3 @@ The FARBER name and supplied FARBER logo are preserved. The new surface inherits
 - Spatial complexity must degrade to clear navigation.
 - Native browser capabilities precede infrastructure.
 - Side experiments remain separable until their value is proven.
-

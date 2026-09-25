@@ -7,6 +7,7 @@ import Video from "../../components/Video.astro";
 import Embed from "../../components/Embed.astro";
 import ObjectHeader from "../../components/ObjectHeader.astro";
 import TextBlock from "../../components/TextBlock.astro";
+import Figure from "../../components/Figure.astro";
 import { getCategoryLabel } from "../../config/categories";
 import { parseItemId } from "../../lib/content";
 
@@ -26,20 +27,30 @@ interface Props {
 const { entry } = Astro.props;
 const { category } = parseItemId(entry.id);
 const { Content } = await render(entry);
+const designContract = `THESIS: Real work and original writing replace demonstration content; no portfolio claims without evidence.
+OWN-WORLD: Inherit FARBER's warm paper, native sans, square grid and restrained interface.
+STORY: Read an essay or inspect a visual identity, then return to its archive category.
+FIRST VIEWPORT: Existing compact masthead, large title, short deck; project imagery starts in the opening viewport. Article copy keeps a readable measure with occasional centered or right-aligned accents.
+FORM: Inherited editorial template, code-led extension; no new visual-world seed. Native disclosure reveals the supplied English essay; no new motion.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md`;
 ---
 
-<BaseLayout title={entry.data.title} description={entry.data.description}>
+<BaseLayout title={entry.data.title} description={entry.data.description} language={entry.data.language} designContract={designContract}>
   <ObjectHeader
     title={entry.data.title}
     category={category}
     categoryLabel={getCategoryLabel(category)}
   />
 
-  <main class="object-page">
+  <main class:list={["object-page", `object-page--${category}`]}>
     <h1>{entry.data.title}</h1>
     {entry.data.description && <p class="object-deck">{entry.data.description}</p>}
     <article class="object-body">
-      <Content components={{ MediaGrid, MediaCell, Video, Embed, TextBlock }} />
+      <Content components={{ MediaGrid, MediaCell, Video, Embed, TextBlock, Figure }} />
     </article>
+    <nav class="object-close" aria-label="Continue browsing" lang="en">
+      <a href={`${import.meta.env.BASE_URL}?filter=${category}`}>Back to {getCategoryLabel(category)}</a>
+      <a href={`${import.meta.env.BASE_URL}contacts/`}>Get in touch</a>
+    </nav>
   </main>
 </BaseLayout>

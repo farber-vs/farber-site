@@ -20,15 +20,29 @@ the address it prints. Serve the generated `dist/` directory through a web
 server; opening `dist/index.html` directly with `file://` will not load the
 site's root-relative links and assets correctly.
 
-## Current prototype
+## Current content MVP
 
 - `/`: modular archive, category filters, and persistent About and Contacts cards.
 - `/{category}/{slug}/`: editorial pages authored in MDX.
 - `/about/` and `/contacts/`: static pages.
 - `/farber/`: a separate experimental navigation map.
 
-The repository includes sample content. Replace the About text, contact
-placeholders, and demo entries before a public launch.
+The archive currently has two categories: Projects and Articles. It includes
+the Schiffman Supplies visual-identity case and «Граница исчезла но осталась
+внутри», with the supplied English translation available through a native
+disclosure. About introduces Alexey Farber's design and art practice. Contacts
+contains only `farbervs@gmail.com`.
+
+Edit the current content here:
+
+- `src/content/items/projects/schiffman-supplies/index.mdx`
+- `src/content/items/articles/granitsa-ischezla-no-ostalas-vnutri/index.mdx`
+- `src/content/static/about.mdx`
+- `src/content/static/contacts.mdx`
+
+Earlier demo entries are preserved under `docs/examples/items/`; they are not
+part of the content collection and are not published. Internal source PDFs,
+brand-strategy notes and design-review files are not included in the build.
 
 Source code, content, media, documentation, and the pnpm lockfile belong in Git.
 Dependencies, generated output, local environment files, Obsidian settings,
@@ -77,6 +91,11 @@ description: Optional short introduction.
 
 `cols` must be 1–8 and `rows` must be 1–4. The folder name becomes the URL, so use lowercase Latin letters, numbers, and hyphens. The parent folder becomes the category.
 
+`date` is the publication date used for chronological sorting, not the year a
+project was made. `language` may be `en` (default) or `ru`; it sets the document
+language. Covers can be JPEG, PNG, WebP or SVG. On phones, authored spans are
+ignored and all homepage modules have equal size.
+
 The body is ordinary Markdown. Local images use relative paths:
 
 ```md
@@ -94,6 +113,21 @@ For a modular image composition, use the limited MDX wrappers:
   </MediaCell>
 </MediaGrid>
 ```
+
+For an uncropped case-study image with a caption, import the image and use
+`Figure`. The opening image can have `priority` for eager loading:
+
+```mdx
+import identity from "./identity.webp";
+
+<Figure src={identity} alt="Describe what the image shows" caption="Optional caption" priority />
+```
+
+For two complete images side by side, use `<MediaGrid layout="natural">`
+with two `<MediaCell cols={2}>` wrappers containing a `Figure` each. They stack
+on mobile. The default modular grid still crops media into authored cells;
+`natural` preserves image proportions. Keep a blank line around Markdown
+inside MDX wrappers.
 
 For local video, import the file and pass the generated URL to `Video`:
 
@@ -138,3 +172,6 @@ pnpm dev
 pnpm build
 pnpm preview
 ```
+
+After a production build, run `node scripts/check-content.mjs` to check page
+and asset links, the configured filters, core content and the contact address.

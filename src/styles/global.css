@@ -138,6 +138,20 @@ a {
   object-fit: cover;
 }
 
+.homepage-grid a:focus-visible {
+  outline-color: var(--ink);
+  outline-offset: -4px;
+}
+
+.homepage-grid a:focus-visible::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  border: 2px solid var(--paper);
+  content: "";
+  pointer-events: none;
+}
+
 .content-card span,
 .persistent-card span {
   position: absolute;
@@ -356,6 +370,127 @@ a {
   text-decoration: underline;
 }
 
+.object-page,
+.static-page {
+  max-width: 1600px;
+  margin-inline: auto;
+}
+
+.object-page--projects > h1,
+.object-page--articles > h1 {
+  margin-bottom: 32px;
+}
+
+.object-page--projects .object-deck,
+.object-page--articles .object-deck {
+  max-width: 42ch;
+  margin: 0 0 clamp(32px, 4vw, 56px);
+}
+
+.object-page--articles > h1 {
+  max-width: 22ch;
+}
+
+.object-page--articles .text-block--display {
+  max-width: 30ch;
+  font-size: clamp(30px, 3.4vw, 54px);
+  line-height: 1.08;
+}
+
+.object-body > .article-source {
+  margin-bottom: 32px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.editorial-figure {
+  min-width: 0;
+  margin: clamp(32px, 5vw, 80px) 0;
+}
+
+.object-body > .editorial-figure:first-child {
+  margin-top: 0;
+}
+
+.editorial-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.editorial-figure figcaption {
+  max-width: 75ch;
+  padding-top: 10px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.article-translation {
+  max-width: 68ch;
+  border-block: 1px solid var(--line);
+  font-size: clamp(18px, 1.4vw, 22px);
+  line-height: 1.48;
+}
+
+.article-translation summary {
+  padding: 18px 0;
+  cursor: pointer;
+}
+
+.article-translation summary:focus-visible,
+.object-close a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.translation-body {
+  padding-bottom: 16px;
+}
+
+.translation-body h2 {
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 520;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+.translation-body p {
+  margin: 0 0 1.45em;
+}
+
+.object-body > .contact-email {
+  max-width: 100%;
+  margin-top: clamp(36px, 6vw, 96px);
+  font-size: clamp(28px, 5vw, 80px);
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.contact-email a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+.object-close {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: clamp(64px, 9vw, 144px);
+  border-top: 1px solid var(--line);
+}
+
+.object-close a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  font-size: 14px;
+}
+
 .object-body > p > img {
   display: block;
   width: min(100%, 1200px);
@@ -394,6 +529,24 @@ a {
 .embed-block {
   width: min(100%, 1200px);
   margin: clamp(48px, 8vw, 112px) 0;
+}
+
+.media-grid--natural {
+  grid-auto-rows: auto;
+  align-items: start;
+}
+
+.media-grid--natural .media-cell {
+  background: transparent;
+}
+
+.media-grid--natural .editorial-figure {
+  margin: 0;
+}
+
+.media-grid--natural .editorial-figure img {
+  height: auto;
+  object-fit: contain;
 }
 
 .video-block video,
@@ -470,6 +623,10 @@ a {
     grid-column: span var(--media-cols);
     grid-row: span var(--media-rows);
   }
+
+  .media-grid--natural {
+    grid-auto-rows: auto;
+  }
 }
 
 @media (min-width: 960px) {
@@ -533,7 +690,9 @@ a {
   .filter-bar a:not([aria-current="page"]):hover {
     background: var(--surface);
   }
+}
 
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
   .content-card span {
     opacity: 0;
   }
