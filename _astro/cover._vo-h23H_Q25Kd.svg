@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
+  <rect width="1200" height="1200" fill="#dad5cb"/>
+  <path d="M600 0V360M600 840V1200" stroke="#68675f" stroke-width="2"/>
+  <g fill="#1b1c19" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="130" font-weight="400" letter-spacing="-4">
+    <text x="66" y="400">Граница</text>
+    <text x="66" y="538">исчезла</text>
+    <text x="66" y="676">но осталась</text>
+    <text x="66" y="814">внутри</text>
+  </g>
+</svg>
