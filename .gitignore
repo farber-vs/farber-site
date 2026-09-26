@@ -5,6 +5,7 @@ dist/
 .pnpm-store/
 .obsidian/
 .impeccable/
+prototypes/
 
 # Local credentials and environment settings
 .env

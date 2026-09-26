@@ -40,6 +40,10 @@ typography:
     fontWeight: 400
     lineHeight: 1
     letterSpacing: "0.025em"
+  editorial-italic:
+    fontFamily: "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif"
+    fontWeight: 200
+    fontStyle: italic
   identity-label:
     fontFamily: "ui-serif, Georgia, serif"
     fontSize: "22px"
@@ -61,7 +65,7 @@ components:
     padding: "0 8px"
     height: "44px"
   filter-link-active:
-    backgroundColor: "{colors.surface-strong}"
+    backgroundColor: "transparent"
     textColor: "{colors.ink}"
     typography: "{typography.label}"
     rounded: "{rounded.square}"
@@ -151,6 +155,7 @@ The palette feels like ink and registration marks on warm paper: neutral enough 
 - **Headline:** Medium, tightly tracked, solid leading. Use for section headings inside long-form objects.
 - **Title:** Medium and compressed. Use for persistent archive modules and prominent node headings.
 - **Body:** Regular with generous leading and a readable measure capped around 68 characters. Use for essays, descriptions, and item links.
+- **Large Editorial Italic:** Extra Light (`font-weight: 200`) in the existing native family. This is the owner-approved weight for occasional reflective passages and authorial statements across the site, including `large-italic`, article metaphors and the About statement. Keep each existing role's size, line-height, tracking, colour, spacing and alignment unchanged. This is not a blanket change to inline emphasis. Native font rendering may vary by platform; do not add a new family or simulate thinness with opacity.
 - **Label:** Regular, compact, lightly tracked, and uppercase. Use for filters, controls, breadcrumbs, status, and practice metadata.
 - **Identity Label:** Regular serif, widely tracked, centered, and uppercase. Reserve for the “Visual systems” line beneath the FARBER wordmark.
 
@@ -162,7 +167,7 @@ The palette feels like ink and registration marks on warm paper: neutral enough 
 
 ## Layout
 
-The archive uses an edge-to-edge modular grid with an 8-pixel rhythm and 12-pixel page edge. It progresses from one column on the narrowest screens to two at 480 pixels, four at 768 pixels, six at 1024 pixels, and eight at 1440 pixels. Authored column and row spans matter on wider screens; mobile reduces the composition aggressively and lets modules stack without horizontal scrolling.
+The archive uses an edge-to-edge modular grid with an 8-pixel rhythm and fluid 12–24-pixel page edge inside a 1600px shell. It progresses from one column on the narrowest screens to two at 480 pixels, four at 768 pixels, six at 1024 pixels, and eight at 1440 pixels. Authored column and row spans matter on wider screens; mobile reduces the composition aggressively and lets modules stack without horizontal scrolling.
 
 Object pages use full-width shells with responsive block padding, display titles capped at 1300 pixels, and long-form copy constrained to about 68 characters. Media groups reuse the same modular logic rather than introducing a separate gallery aesthetic.
 
@@ -204,7 +209,7 @@ Components feel restrained and structural: state changes are carried by tone, in
 ### Chips
 
 - **Style:** Category chips are square tonal labels, compact and uppercase, with no border.
-- **State:** The active archive filter uses the stronger neutral surface. Inactive filters remain on paper until pointer hover.
+- **State:** The active archive filter is underlined with aria-current. All filters remain plain regular-weight text on paper; hover uses the clay accent.
 
 ### Cards / Containers
 
@@ -216,7 +221,7 @@ Components feel restrained and structural: state changes are carried by tone, in
 
 ### Navigation
 
-Archive filters are small uppercase text links arranged as a compact grid on mobile and a horizontal bar on wide screens. Object and map back-links combine a thin line arrow with a short label and retain 44-pixel targets. Active state is communicated through `aria-current`, not color alone.
+Archive filters are small regular-weight, mixed-case text links in a wrapping flex row, with an underlined active state. Object and map back-links combine a thin line arrow with a short label and retain 44-pixel targets. Active state is communicated through `aria-current`, not color alone.
 
 ### FARBER Hub
 
@@ -254,3 +259,7 @@ The only authored motion is the FARBER world scale change: 900 milliseconds with
 - **Don't** reproduce the desktop map as a horizontally scrolling mobile canvas.
 - **Don't** introduce animation beyond the meaningful change of viewing distance.
 - **Don't** let labels, controls, or connector lines overpower the archive content or FARBER wordmark.
+
+## Approved editorial release
+
+The integrated editorial implementation is specified in [docs/editorial-layout.md](docs/editorial-layout.md). Cases use prepared, grouped media; articles use a source rail and a continuous 60ch reading axis with EN | RU at the top. Images are uncaptioned tiles with a native full-image dialog; Digest is text-only source-linked selections. The supplied case GIF is content with Play/Stop and reduced-motion fallback, distinct from interface motion. Local prototype files are not public source or assets.

@@ -1,47 +1,157 @@
-# Editorial content extension
+# Editorial layout and design principles
 
-This documents the Projects/Articles route and its immediate archive entry points. It is a narrow extension of the existing warm-paper, native-sans, square-grid design in `DESIGN.md`, not a replacement global design system. The original design file and its sidecar remain unchanged. Implementation in `src/styles/global.css` and the named components is the source of truth.
+This is the binding editorial guidance for this site, extending the warm-paper, native-sans, square-grid visual system in [DESIGN.md](../DESIGN.md). It records both the owner-approved direction and the implemented baseline; these are deliberately distinct. It does not replace global design tokens or the homepage grid specification.
 
-## Current surface
+## Approved direction — 2026-09-25
 
-The item template is `src/pages/[category]/[slug].astro`. Its reading sequence is the existing compact masthead, title, short deck, authored content, and a closing navigation row. The closing links return to the current archive category or open Contacts. The Schiffman case begins with project imagery in the first viewport; the essay begins with source context and text.
+The owner approved these principles following the five-studio reference study and the Schiffman desktop/mobile layout proposal. This approval establishes design guidance, not a claim that the proposal is already implemented or published. Existing CSS and components describe what currently ships; the principles below govern subsequent editorial changes. Preserve existing behaviour and accessibility while applying them.
 
-About and Contacts use the existing static-page template. About reuses `TextBlock`; Contacts presents only the authorized email link. These pages remain homepage modules rather than content categories. The separate `/farber/` map is outside this layout extension.
+### Work first, quiet interface
 
-## Text and language
+- Let the work supply the colour, texture, and visual energy. Keep the surrounding interface restrained, with the existing FARBER logo, font family, neutral palette, and square geometry.
+- Create character through scale, placement, rhythm, and editing. Do not add heavy outlines, decorative cards, shadows, or effects to manufacture interest. Keep necessary focus indicators visible.
+- For project cases, show meaningful project imagery in the first viewport alongside a concise title and introduction. Avoid a full-screen preamble that postpones the work.
+- For articles, prioritise a readable title, introduction, and continuous text. Do not add a hero image or portfolio choreography without a content reason.
 
-Ordinary essay and case paragraphs stay left aligned, with a maximum reading measure of 68 characters. Object and static-page shells are capped at 1600 pixels. Project/article titles have a compact 32-pixel lower margin and decks are capped at 42 characters; the article title has its own 22-character cap.
+### Composition and rhythm
 
-`TextBlock` separates short editorial emphasis from continuous reading:
+- Alternate full-width media, paired or unequal-width groups, and short text pauses when the material benefits from them. Avoid both a monotonous slideshow and arbitrary variation for its own sake.
+- Group by meaning: a mark and its variations; patterns and their logic; applications at different scales. Let each group demonstrate a specific idea.
+- Use tighter gaps within a group and more space between chapters. Empty space should clarify relationships, not merely inflate page length.
+- Use asymmetry deliberately: for example, a short heading on the left and explanatory copy on the right, or one large image beside a smaller image and its explanation.
+- A case should communicate context, design logic, and applications, not just list deliverables. Keep length proportional to the available evidence; do not invent chapters or repeat images to imitate a large studio's case.
 
-- `align`: `left` (default), `center`, or `right`.
-- `variant`: `body` (default), `display`, or `large-italic`.
-- `display` uses heavier native sans-serif type; `large-italic` uses the same native family in italic. Neither adds a font dependency.
+### Text placement, alignment, and roles
 
-Use centered italic or right-aligned heavy blocks for short accents, not whole essays. The article has a smaller display accent than the case to contain its longer closing question. About also uses a short right-aligned body block. Alignment does not change DOM reading order, and no motion is added.
+Positioning a text block on the left, centre, or right of the page is independent of aligning the text inside it. Body paragraphs remain left aligned, even inside a right-hand column, with a comfortable reading measure of approximately 60–68 characters where space permits.
 
-The essay's frontmatter sets `language: ru`, which reaches the document's `lang` attribute. Its supplied English text sits in a native `<details lang="en">` disclosure labelled “Read in English”, with a keyboard-focusable `<summary>`. English closing navigation is explicitly marked `lang="en"`. Other current pages use the English default. Preserve the original essay and supplied translation; source metadata is not the site's publication date.
+Use three available editorial roles, not three compulsory decorations:
 
-## Images and grouped media
+- **Medium regular grotesk:** explanations, context, and continuous reading.
+- **Large dense grotesk:** a short central idea or emphatic statement; not an entire explanation.
+- **Large italic in the existing family, Extra Light 200:** an occasional authorial remark, reflection, or genuine quotation. The owner explicitly requested `font-weight: 200` site-wide for this role, preserving existing sizes, spacing, line-height, tracking, colour, alignment and purpose. Do not invent attribution or a testimonial, change ordinary body weight, or use opacity to imitate a thin face.
 
-`Figure` takes an imported local image, required meaningful `alt`, optional `caption`, and optional `priority`. It uses Astro's image output, responsive widths, and natural image height. The first case image sets `priority`; subsequent images load lazily. Captions identify the work without treating mockups as evidence of production deployment: packaging, vehicle livery, and signage are labelled visualisations.
+Centred or right-aligned text is reserved for short accents. Not every page needs all three roles or all three alignments. Do not alternate alignment mechanically. Keep headings, statements, and body copy visibly distinct without introducing new font dependencies.
 
-The existing `MediaGrid` defaults to its modular layout. For uncropped case imagery, use `layout="natural"` with two `MediaCell cols={2}` children, each containing a `Figure`. At 768 pixels and above, these form a pair on the four-column media grid. Below that breakpoint, they stack in source order. Natural layout uses automatic row heights and preserves image proportions; do not force these images into cropped, equal-height cells. Single figures remain full width within the page shell.
+### Prepare media for the screen
 
-## Archive labels and keyboard focus
+- Treat a presentation as source material, not a ready-made web page. Remove slide framing and unnecessary internal margins when preparing the web export.
+- Show the core mark at a legible scale. Break a dense overview of logos, colours, patterns, and services into selected, independently readable media where needed.
+- Preserve important artwork and objects. Crop deliberately when composition benefits, not simply to force unrelated images into identical boxes. Inspect every crop on mobile; keep natural proportions when a crop would lose meaning.
+- Do not carry prototype-specific zoom or crop coordinates into the content-authoring workflow. Prefer clean source exports and a small number of understandable layout variants.
+- Use real supplied assets and concise adjacent captions. Label mockups as visualisations; do not present them as proof of a production launch.
+- Retain responsive images, appropriate loading priority, and lazy loading below the opening media. A larger visual presence does not require unnecessarily heavy files.
 
-Content-card title strips remain visible below 768 pixels, including narrow windows with a fine pointer. They also remain visible on devices without reliable hover. Only at 768 pixels and above with both hover and a fine pointer do titles hide at rest; hovering or keyboard-focusing the link reveals them. Labels wrap within the card rather than relying on the accessible link name alone.
+### Mobile is a simpler composition
 
-All homepage links, including About and Contacts, have an enclosed two-colour keyboard indicator: the existing two-pixel outline becomes ink with a negative four-pixel offset, and a non-interactive overlay adds a two-pixel paper border at the inside edge. This stays visible within the cards' clipped bounds and against both light and dark imagery. It is a scoped focus treatment, not a new category colour or decorative shadow. Other editorial links retain the clay outline; the translation summary and closing links have explicit focus styles.
+- Editorial media groups and text columns collapse into a single logical reading sequence. This does not alter the homepage's separately specified 1–2-column mobile grid.
+- Preserve DOM order; do not use desktop positioning that scrambles the narrative when stacked.
+- Remove desktop offsets, reduce excess spacing, and default statements as well as paragraphs to left alignment. Keep useful type hierarchy and legible captions.
+- Do not squeeze two detailed images into narrow side-by-side slots, preserve presentation-sized blank margins, or introduce horizontal scrolling.
 
-## Authoring and evidence boundaries
+### Simple implementation remains a requirement
 
-Place each entry at `src/content/items/{category}/{latin-slug}/index.mdx`, with its assets alongside it. The category must exist in `src/config/categories.ts`. Current categories are `projects` and `articles`; slugs use lowercase Latin letters, digits, and hyphens.
+- Reuse Astro, MDX, native CSS Grid, and existing components. Add only small, explicit layout variants justified by actual content; no generic layout engine, page builder, CMS, or new animation framework.
+- Full-width media, paired groups, unequal columns, and text placement are ordinary layout work, not reasons to introduce client-side infrastructure.
+- Native disclosure can hold genuinely long background information; do not hide the current short copy merely to reproduce a reference interaction.
+- Authored video is content, distinct from interface animation. When motion is requested, a native video element with suitable poster and controls can show a prepared clip without scroll choreography or an animation library.
+- Scroll-synchronised sequences, custom smooth scrolling, interactive 3D, custom cursors, elaborate galleries, and page transitions remain outside the MVP unless explicitly requested.
 
-Required frontmatter is `title`, `date`, `cover`, `cols`, and `rows`. `description` and `language` are optional; language defaults to `en`. Homepage spans accept 1–8 columns and 1–4 rows and simplify on mobile. `date` is the entry's site-publication/sort date, not an inferred project year. Do not add an unconfirmed project year, collaborators, client results, or performance metrics. Existing demonstration entries are preserved in `docs/examples/items/` and are not rendered by the content collection.
+### Schiffman reference sequence, not a mandatory template
 
-Keep private source locations, workspace links, and internal working material out of public content and documentation. Describe only supported public-facing facts and use the already authorized contact channel.
+The approved example moves from application to construction and back to application:
 
-## Verified baseline
+1. Compact project introduction: name left, short description right.
+2. Large container application without the presentation frame.
+3. Brief context in a heading/body split.
+4. Enlarged core mark beside its modular family.
+5. One short statement connecting the mark to the system.
+6. Enlarged patterns and a concise explanation instead of a dense all-in-one board.
+7. Packaging, transport, and a scale explanation grouped together.
+8. Large signage image, then simple project-return and contact links.
 
-The finish review in `.impeccable/review/finish-review.md` is PASS. Its supporting `verification.json` records 35 route/width checks from 320 to 1920 pixels, plus filtering, persistent modules, mobile titles, keyboard focus, native translation, and map checks. The focused confirmation covers title containment at 320, 390, and 640 pixels and the enclosed focus ring on all four homepage cards. Screenshots accompany that review. These checks establish the implemented responsive baseline; they do not claim a separate screen-reader audit or independently establish source provenance.
+Reuse the principles, not these exact assets, sequence, column ratios, or pixel measurements. The local JPG proposal is illustrative; this document carries the durable guidance without requiring private source files or ignored preview artifacts.
+
+### Reference lineage
+
+These specific cases informed the direction; borrow composition principles, not their branding or technical stacks:
+
+- [Landor — West Loop](https://landor.com/en/our-work/west-loop/): immediate visual impact and closely grouped media at different scales.
+- [Wolff Olins — Uber](https://www.wolffolins.com/work/uber): chapters that connect context and design decisions.
+- [Design Bridge and Partners — Forest Carbon](https://www.designbridge.com/work/forest-carbon): a clear central idea, varied media scale, and short explanatory pauses.
+- [Saffron — Repsol](https://saffron-consultants.com/work/repsol): editorial columns with text placement independent of paragraph alignment.
+- [Pentagram — Pfizer](https://www.pentagram.com/work/pfizer): a quiet shell, concise introduction, and media-first presentation.
+
+### Acceptance check for future changes
+
+Inspect desktop and mobile together. Confirm that the first screen communicates the subject; every media group has a purpose; the core mark and details remain legible; crops preserve meaning; body copy reads comfortably; and mobile has no horizontal overflow or broken reading order. Preserve keyboard focus, descriptive alternative text, factual captions, and simple navigation. Treat an approved mockup, a local implementation, and a public deployment as three different states.
+
+## Integrated implementation — 2026-09-26
+
+The owner approved the case, article, About, Contacts, homepage, Images and
+Digest, then authorized publication. The layouts are now in `src/`, not just
+the local prototypes. This section supersedes the previous implementation
+baseline and prototype-only status. Actual publication is a separate verified
+GitHub Pages deployment; a successful build alone is not evidence of release.
+
+### Page structure
+
+- A shared masthead uses the FARBER logo at 156px (118px below 900px), regular
+  navigation, 44px targets and 12–24px edges within a 1600px shell.
+- The home archive retains 8px gaps, row packing and 1/2/4/6/8 columns at
+  0/480/768/1024/1440px. Below 768px every module is 1×1; larger desktop
+  spans cap to available columns. About/Contacts always lead. Date-descending
+  content follows; equal dates use the content path for a stable order.
+- Filters are regular text with an underlined active state and aria-current,
+  persisted in the query string and browser history. No-JS shows all content.
+- `src/pages/[category]/[...slug].astro` shares the editorial shell. Project
+  content leads with media and grouped applications. About and Contacts retain
+  their approved compositions; Contacts has one email link only.
+- Articles use one reading axis, a source rail on desktop and source context
+  above the body on mobile. Body measure is 60ch; ordinary copy remains left
+  aligned. The metaphor is Extra Light 200 and the closing question is dense
+  grotesk. The article title, source and body remain in logical DOM order.
+- `index.mdx` is English. Optional sibling `ru.mdx` supplies Russian text,
+  title, description and source metadata through the translations collection.
+  Both render with one template, native EN | RU links at the top, current
+  language indication and correct document lang. The existing base article URL
+  is preserved; Russian adds `ru/`. No redirects or language JavaScript.
+- Schiffman uses prepared crops as image assets, not SVG viewports or slide
+  scale transforms. Media use responsive Astro output. The supplied centred
+  GIF has Play/Stop and a static reduced-motion/no-JS fallback.
+- Images uses the existing item collection with required fullImage and alt
+  for this category. There are no object pages or tile caption overlays.
+  A native dialog presents the full uncropped photograph, loading/error states,
+  Close/Escape/backdrop dismissal, focus return and scroll restoration.
+  The ordinary link is a raw-image fallback without JavaScript.
+- Digest is one issue page with short summaries, source links and topic labels.
+  Issue 001 is explicitly attributed to archive selections from 4 August 2022.
+  The owner chose **no third-party images**: text-only editorial rows and an
+  original typographic cover. Do not ship the reference images, including in
+  Git history. The three source URLs returned HTTP 200 during release checks.
+- The separate FARBER map keeps its existing design. Its category positions
+  now include Images and Digest; image links lead to the Images filter rather
+  than nonexistent object pages.
+
+### Editing and boundaries
+
+See README for current authoring examples. Keep content in MDX and local
+media, with no copied full HTML pages, CMS or additional dependencies.
+Required item fields remain title/date/cover/cols/rows; Images adds
+fullImage/alt. Publication dates sort entries and do not establish a historical
+project or photo date. Do not invent outcomes, clients or credits.
+
+The local `prototypes/` and `.impeccable/` directories are excluded from Git
+and the Astro build. They may contain unlicensed visual references and must
+not be published. Public documentation and content must not expose private
+workspace paths.
+
+### Release verification
+
+The release browser pass covers 48 route/viewport combinations from 320 to
+1920px, all four filters plus Show All, history/reload, popup fit in portrait
+and landscape, focus restoration, EN/RU, GIF controls/reduced motion, and
+no-JS fallbacks. Screenshots are actual browser renders. The content checker
+validates base-prefixed page/asset links, category/card counts, languages,
+single contact, and absence of third-party Digest images. This is not a
+claim of a separate screen-reader audit.

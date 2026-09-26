@@ -71,6 +71,25 @@ Avoid unnecessary decorative design.
 
 Function and structure are more important than visual effects.
 
+### Required design guidance
+
+Before designing, editing, or reviewing a page, read [DESIGN.md](DESIGN.md) for the established visual system and [docs/editorial-layout.md](docs/editorial-layout.md) for the owner-approved editorial principles and implementation status.
+
+- The work leads; the interface recedes. Preserve the FARBER logo, existing font family, and neutral palette unless the owner requests a redesign.
+- Build character through image scale, meaningful grouping, typography, and spacing, not decorative containers, strong outlines, or effects.
+- Treat text-block placement separately from text alignment: a paragraph in a right-hand column still reads left aligned.
+- Prepare images for the web; do not shrink complete presentation slides or dense identity boards into unreadable illustrations.
+- Project cases foreground the work; articles foreground reading. Do not impose one case's sequence on every content type.
+- Simplify editorial pages into a clear single-column mobile flow. The homepage retains its separately specified modular grid.
+- English is the default site and article language. Bilingual articles expose a visible `EN | RU` switch at the top, with the active language clearly indicated; do not bury the alternative language in a bottom disclosure. Preserve both supplied texts and the correct document language. This is implemented with shared templates and separate static language URLs.
+- The large editorial italic role is Extra Light: `font-weight: 200`, in the existing font family. Preserve its current purpose, size, line-height, spacing, tracking, colour and alignment. This applies site-wide to `large-italic` and its prototype equivalents, not to every inline emphasis.
+
+The approved Schiffman composition is a design reference, not a universal page template. Documented design approval does not mean that a mockup is implemented or deployed, nor does it authorize unrelated visual changes.
+
+### Prototype review delivery
+
+Keep prototyping in HTML/CSS, but send actual browser screenshots directly in the conversation for each visual review. The owner often reviews on a phone and cannot reliably open localhost links. Show desktop and mobile views, with readable detail shots for the changed areas when useful; local preview URLs are optional, never the only deliverable. Screenshots must show the current code, not generated approximations.
+
 ## Responsive philosophy
 
 Desktop should preserve the modular spatial composition.

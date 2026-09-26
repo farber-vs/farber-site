@@ -1,0 +1,8 @@
+---
+interface Props { category?: string; email?: boolean; }
+const {category,email=true}=Astro.props;
+---
+<footer class="site-footer" lang="en">
+  <a href={category ? `${import.meta.env.BASE_URL}?filter=${category}` : import.meta.env.BASE_URL}>Back to {category ?? "archive"}</a>
+  {email && <a href="mailto:farbervs@gmail.com">farbervs@gmail.com</a>}
+</footer>

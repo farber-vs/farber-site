@@ -1,6 +1,8 @@
 export const categories = [
   { slug: "projects", label: "Projects" },
   { slug: "articles", label: "Articles" },
+  { slug: "images", label: "Images" },
+  { slug: "digest", label: "Digest" },
 ] as const;
 
 export type CategorySlug = (typeof categories)[number]["slug"];

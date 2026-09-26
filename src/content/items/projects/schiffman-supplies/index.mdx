@@ -1,60 +1,61 @@
 ---
 title: Schiffman Supplies
 date: 2026-09-25
-cover: ./cover.webp
+cover: ./cover-web.webp
 cols: 4
 rows: 3
 description: A visual identity built around connections, movement and a modular structure.
 ---
 
-import cover from "./cover.webp";
-import identity from "./identity.webp";
+import cover from "./cover-web.webp";
+import identity from "./identity-mark.webp";
 import field from "./modular-field.webp";
 import packaging from "./packaging.webp";
-import transport from "./transport.webp";
-import system from "./visual-system.webp";
-import signage from "./signage.webp";
+import transport from "./transport-web.webp";
+import light from "./pattern-light.webp";
+import dark from "./pattern-dark.webp";
+import signage from "./signage-web.webp";
+import poster from "./logo-poster.webp";
+import animation from "./logo-animation.gif?url";
+import { Image } from "astro:assets";
 
-<Figure src={cover} alt="Orange shipping container with the Schiffman Supplies identity in white." caption="Schiffman Supplies · Visual identity. Application visualisations from the project presentation." priority />
+<CaseImage src={cover} alt="Orange shipping container with the Schiffman Supplies identity in white." caption="Visual identity · Application visualisations from the project presentation." priority />
 
-## A system for moving things
+<section class="story-split">
+  <h2>A system for moving things</h2>
+  <p>Schiffman Supplies works with industrial manufacturers and suppliers in the B2B sector. The project brief brings together supply chains, import and export, distribution and consulting — activities that connect different parts of a larger system.</p>
+</section>
 
-Schiffman Supplies works with industrial manufacturers and suppliers in the B2B sector. The project brief brings together supply chains, import and export, distribution and consulting — activities that connect different parts of a larger system.
+<div class="identity-pair">
+  <CaseImage src={identity} frame="identity-logo" alt="Schiffman Supplies wordmark paired with an open golden geometric frame and a coloured inner element." caption="An open structure around a compact element." />
+  <CaseImage src={field} frame="identity-family" alt="Variations of the geometric frame around a central Schiffman symbol." caption="One construction, multiple orientations and combinations." />
+</div>
 
-The visual identity translates those relationships into a modular language: an open geometric frame, connecting lines and a smaller, coloured element held inside it.
+<LogoMotion poster={poster.src} animation={animation} />
 
-<MediaGrid layout="natural">
-  <MediaCell cols={2}>
-    <Figure src={identity} alt="Schiffman Supplies wordmark paired with an open, golden geometric frame." caption="The core identity: an open structure around a compact element." />
-  </MediaCell>
-  <MediaCell cols={2}>
-    <Figure src={field} alt="Variations of the geometric frame, rotated around a central Schiffman symbol." caption="One construction, multiple orientations and combinations." />
-  </MediaCell>
-</MediaGrid>
+<p class="case-statement">Different connections.<br />One recognisable structure.</p>
 
-<TextBlock align="right" variant="display">
+<div class="pattern-pair" role="group" aria-label="Geometric patterns derived from the mark">
+  <Image src={light} alt="White geometric line pattern on a golden yellow field." loading="lazy" />
+  <Image src={dark} alt="Golden geometric line pattern on a pale grey field." loading="lazy" />
+</div>
 
-Different connections. One recognisable structure.
+<section class="pattern-story">
+  <h2>From mark to visual language</h2>
+  <p>The frame can turn, repeat and become a pattern. Colour introduces variation without replacing the underlying geometry.</p>
+</section>
 
-</TextBlock>
+<div class="applications">
+  <CaseImage src={packaging} frame="packaging" alt="White and yellow shipping bags carrying the Schiffman mark and line pattern." caption="Packaging visualisation." />
+  <div>
+    <CaseImage src={transport} alt="Delivery van with the Schiffman identity on its white side panel." caption="Vehicle livery visualisation." />
+    <section class="application-copy">
+      <h2>Across scales</h2>
+      <p>The proposed applications move from packaging to transport and signage. The same structure appears as a small signature, a repeated pattern or a large mark on an industrial surface.</p>
+    </section>
+  </div>
+</div>
 
-## From mark to visual language
-
-The frame can turn, repeat and become a pattern. Colour introduces variation without replacing the underlying geometry. The presentation extends the same vocabulary to supplies, logistics, management and consulting.
-
-<Figure src={system} alt="Overview of Schiffman's logo variations, black-and-white versions, colour palette, geometric patterns and service wordmarks." caption="The visual system: mark, variations, colour, patterns and service names." />
-
-## Across scales
-
-The proposed applications move from packaging to transport and signage. The same structure appears as a small signature, a repeated pattern or a large mark on an industrial surface.
-
-<MediaGrid layout="natural">
-  <MediaCell cols={2}>
-    <Figure src={packaging} alt="White and yellow shipping bags with the Schiffman logo and geometric line pattern." caption="Packaging visualisation." />
-  </MediaCell>
-  <MediaCell cols={2}>
-    <Figure src={transport} alt="Delivery van with the Schiffman identity on its white side panel." caption="Vehicle livery visualisation." />
-  </MediaCell>
-</MediaGrid>
-
-<Figure src={signage} alt="Three-dimensional metal Schiffman logo mounted on a light wall, casting a geometric shadow." caption="Signage visualisation." />
+<div class="signage">
+  <CaseImage src={signage} alt="Three-dimensional metal Schiffman logo mounted on a light wall, casting a geometric shadow." caption="Signage visualisation." />
+</div>

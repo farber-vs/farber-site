@@ -1,0 +1,23 @@
+---
+interface Props { poster:string; animation:string; }
+const {poster,animation}=Astro.props;
+---
+<figure class="logo-motion">
+  <div class="logo-motion-stage"><img data-animated-logo src={poster} data-animation={animation} width="665" height="410" alt="Schiffman Supplies logo: the coloured element changes within the open geometric frame." loading="lazy" decoding="async" /></div>
+  <figcaption><span>The structure in motion.</span><button type="button" hidden>Play animation</button><noscript><a href={animation}>View animated logo</a></noscript></figcaption>
+</figure>
+<script>
+  document.querySelectorAll(".logo-motion").forEach(figure => {
+    const image=figure.querySelector("img");
+    const button=figure.querySelector("button");
+    if (!(image instanceof HTMLImageElement) || !(button instanceof HTMLButtonElement)) return;
+    const poster=image.src;
+    const preference=matchMedia("(prefers-reduced-motion: reduce)");
+    let playing=false;
+    const setPlaying=(value:boolean) => { playing=value; image.src=value ? image.dataset.animation! : poster; button.textContent=value ? "Stop animation" : "Play animation"; };
+    button.hidden=false;
+    button.addEventListener("click",()=>setPlaying(!playing));
+    preference.addEventListener("change",event=>setPlaying(!event.matches));
+    setPlaying(!preference.matches);
+  });
+</script>

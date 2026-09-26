@@ -12,7 +12,7 @@ The owner manually publishes projects and writing from an independent design and
 
 ## Product Purpose
 
-The current content MVP presents two real entries in a modular archive: the Schiffman Supplies visual-identity case and the essay «Граница исчезла но осталась внутри». Its two categories are Projects and Articles; About and Contacts remain persistent homepage modules.
+The content MVP has four categories: Projects, Articles, Images and Digest. It includes Schiffman Supplies, the bilingual essay «Граница исчезла но осталась внутри», three owner-supplied photographs and a text-only digest of selected external sources. About and Contacts remain persistent homepage modules.
 
 A separate, experimental FARBER surface makes the configured archive categories legible as a connected field of practices. It is not the main editorial index or a new product platform.
 
@@ -28,8 +28,9 @@ Content is authored as MDX files and local assets in the repository and built as
 
 - Astro, MDX, and native CSS/JavaScript remain the implementation stack.
 - Preserve the homepage's modular grid and editorial templates while replacing demonstration entries with real content.
-- Projects and Articles are the current category scope. About and Contacts are static pages, not categories, and remain visible when filtering.
-- The Russian essay sets the document language to Russian; its supplied English version uses a native disclosure. The case, About, Contacts, and interface copy are English.
+- Projects, Articles, Images and Digest are the current category scope. About and Contacts are static pages, not categories, and remain visible when filtering.
+- English is the default. The essay exposes EN | RU links to separate static language versions sharing one template; document language follows the selected version.
+- Images opens full photographs in a native dialog, with a direct-file fallback; no image object pages. Digest contains short summaries and source links, without third-party imagery.
 - Contacts contains only the authorized email address, with no form, social profiles, or additional contact channels.
 - Item dates record site publication and sort the archive; they do not establish a historical project year. Omit unconfirmed years, collaborators, and outcome claims. Label proposed applications as visualisations.
 - Demonstration entries are retained under `docs/examples/items/`, outside the rendered content collection.

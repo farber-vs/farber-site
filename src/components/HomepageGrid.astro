@@ -1,28 +1,16 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import ContentCard from "./ContentCard.astro";
-
-interface Props {
-  items: CollectionEntry<"items">[];
-}
-
+interface Props { items: CollectionEntry<"items">[]; }
 const { items } = Astro.props;
 ---
-
-<main class="homepage-grid" data-content-grid>
-  <article class="persistent-card persistent-card--about">
-    <a href={`${import.meta.env.BASE_URL}about/`}>
-      <span>About</span>
-      <small>Design &amp; art</small>
-    </a>
-  </article>
-
-  <article class="persistent-card persistent-card--contacts">
-    <a href={`${import.meta.env.BASE_URL}contacts/`}>
-      <span>Contacts</span>
-      <small>Email</small>
-    </a>
-  </article>
-
-  {items.map((entry) => <ContentCard entry={entry} />)}
+<main id="main" class="page-shell home-shell" tabindex="-1">
+  <h1 class="visually-hidden">Farber — projects, articles, images and digest</h1>
+  <p class="visually-hidden" role="status" aria-live="polite" aria-atomic="true" data-filter-status></p>
+  <noscript><style>.filters { display:none !important; }</style><p class="no-script-note">All entries are shown. Category filters need JavaScript.</p></noscript>
+  <div class="archive-grid" data-content-grid aria-label="Archive">
+    <article class="archive-card utility-card" data-persistent><a href={`${import.meta.env.BASE_URL}about/`} aria-label="About — design and art"><span class="utility-label">Design &amp; art</span><span class="utility-title">About</span></a></article>
+    <article class="archive-card utility-card utility-card--contacts" data-persistent><a href={`${import.meta.env.BASE_URL}contacts/`} aria-label="Contacts — email"><span class="utility-label">Email</span><span class="utility-title">Contacts</span></a></article>
+    {items.map((entry, index) => <ContentCard entry={entry} priority={index < 2} />)}
+  </div>
 </main>

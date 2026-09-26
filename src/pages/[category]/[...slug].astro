@@ -1,0 +1,57 @@
+---
+import {getCollection,render,type CollectionEntry} from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import EditorialHeader from "../../components/EditorialHeader.astro";
+import EditorialFooter from "../../components/EditorialFooter.astro";
+import MediaGrid from "../../components/MediaGrid.astro";
+import MediaCell from "../../components/MediaCell.astro";
+import Video from "../../components/Video.astro";
+import Embed from "../../components/Embed.astro";
+import TextBlock from "../../components/TextBlock.astro";
+import Figure from "../../components/Figure.astro";
+import CaseImage from "../../components/CaseImage.astro";
+import LogoMotion from "../../components/LogoMotion.astro";
+import {getCategoryLabel} from "../../config/categories";
+import {parseItemId} from "../../lib/content";
+import "../../styles/article.css";
+import "../../styles/case.css";
+import "../../styles/digest.css";
+export async function getStaticPaths() {
+  const items=await getCollection("items");
+  const translations=await getCollection("translations");
+  for(const translation of translations) if(!items.some(item=>item.id===translation.id && item.id.startsWith("articles/"))) throw new Error(`Orphan article translation: ${translation.id}`);
+  return items.filter(entry=>!entry.id.startsWith("images/")).flatMap(entry=>{
+    const {category,slug}=parseItemId(entry.id);
+    const translation=translations.find(item=>item.id===entry.id);
+    const pages=[{params:{category,slug},props:{entry,translation:undefined,hasTranslation:!!translation}}];
+    if(translation) pages.push({params:{category,slug:`${slug}/ru`},props:{entry,translation,hasTranslation:true}});
+    return pages;
+  });
+}
+interface Props {entry:CollectionEntry<"items">;translation?:CollectionEntry<"translations">;hasTranslation:boolean;}
+const {entry,translation,hasTranslation}=Astro.props;
+const selected=translation ?? entry;
+const {Content}=await render(selected);
+const {category,slug}=parseItemId(entry.id);
+const {title,description,language,source}=selected.data;
+const components={MediaGrid,MediaCell,Video,Embed,TextBlock,Figure,CaseImage,LogoMotion};
+const isArticle=category==="articles";
+const pageClass=isArticle?"article-page":category==="projects"?"case-page":"digest-page";
+---
+<BaseLayout title={title} description={description} language={language}>
+  <EditorialHeader title={title} category={category} categoryLabel={getCategoryLabel(category)} language={language} articlePath={hasTranslation ? `${import.meta.env.BASE_URL}${category}/${slug}/` : undefined} />
+  <main id="main" class:list={["page-shell",pageClass]} tabindex="-1">
+    {isArticle ? <article class="essay" aria-labelledby="article-title">
+      <header class="essay-intro"><h1 id="article-title">{title}</h1>{description && <p class="essay-deck">{description}</p>}</header>
+      {source && <p class="essay-source"><span>{source.date}</span><span lang="en">{source.publication}</span><a href={source.url}>{source.label}</a></p>}
+      <div class="essay-body"><Content components={components} /></div>
+    </article> : <article>
+      <header class={category==="projects"?"case-intro":"digest-intro"}>
+        <h1>{entry.data.displayTitle ?? title}</h1>
+        {description && (category==="projects" ? <p class="case-deck">{description}</p> : <div class="digest-deck"><p>{description}</p></div>)}
+      </header>
+      <Content components={components} />
+    </article>}
+    <EditorialFooter category={category} />
+  </main>
+</BaseLayout>

@@ -1,24 +1,23 @@
 {
   "project": {
     "name": "Personal Modular Website",
-    "stage": "Content MVP: one project, one article, About and Contacts",
+    "stage": "Content MVP: Projects, Articles, Images, Digest, About and Contacts",
     "objective": "Create a simple personal website where content is presented through a responsive modular grid.",
     "core_principle": "simple implementation / strong concept",
     "priority": "Build a working, clean and easily editable site without unnecessary engineering complexity."
   },
-
   "content": {
     "categories": [
       "projects",
-      "articles"
+      "articles",
+      "images",
+      "digest"
     ],
-
     "filters": {
       "required": true,
       "default": "show-all",
       "editable_in_code": true
     },
-
     "management": {
       "admin_panel": false,
       "cms": false,
@@ -27,7 +26,6 @@
       "goal": "The site owner should be able to add and edit content directly in the repository without copying large HTML templates."
     }
   },
-
   "homepage": {
     "top_bar": {
       "type": "narrow filter bar",
@@ -35,57 +33,50 @@
       "items": [
         "Show All",
         "Projects",
-        "Articles"
+        "Articles",
+        "Images",
+        "Digest"
       ]
     },
-
     "persistent_modules": [
       "About",
       "Contacts"
     ],
-
     "persistent_modules_behavior": "About and Contacts are normal grid modules but always appear before content items.",
-
     "content_card": {
       "visual_content": "image or visual media",
       "text": "title only",
       "desktop_title": "visible on hover",
       "mobile_title": "always visible",
-      "click": "open object page"
+      "click": "open object page, except Images which opens an uncropped image in a native dialog",
+      "images_exception": "Image-only tiles have no visible title overlay and no internal object page. Provide descriptive alt text; close via Close, Escape or backdrop and restore focus."
     }
   },
-
   "grid": {
     "technology_preference": "native CSS Grid",
-
     "base_unit": {
       "preferred_shape": "square",
       "strict_requirement": false
     },
-
     "responsive_columns": {
       "mobile": "1-2",
       "tablet": 4,
       "desktop": 6,
       "wide": 8
     },
-
     "responsive_note": "Column count must react to viewport width rather than fixed physical module sizes.",
-
     "module_size": {
       "controlled_by_author": true,
       "preferred_schema": {
         "cols": "integer",
         "rows": "integer"
       },
-
       "common_sizes": [
         "1x1",
         "2x1",
         "1x2",
         "2x2"
       ],
-
       "larger_sizes": {
         "allowed": true,
         "examples": [
@@ -96,7 +87,6 @@
         "rule": "Allow larger spans when native CSS Grid handles them naturally. Do not build special infrastructure for them."
       }
     },
-
     "packing": {
       "automatic": true,
       "perfect_packing_required": false,
@@ -104,26 +94,25 @@
       "custom_layout_engine": false
     }
   },
-
   "filtering": {
     "behavior": "Selecting a category hides unrelated content and lets the CSS Grid naturally repack remaining modules.",
     "animation_required": false,
     "new_categories": "A category and its filter should be easy to add manually in one clearly documented location."
   },
-
   "object_pages": {
     "required": true,
-
+    "exceptions": [
+      "images"
+    ],
     "url_structure": {
       "preferred": "/{category}/{slug}",
       "examples": [
         "/projects/project-name",
-        "/articles/article-name"
+        "/articles/article-name",
+        "/digest/issue-name"
       ]
     },
-
     "design": "Simple editorial storytelling page inspired by independent design studio websites.",
-
     "content_types": [
       "text",
       "images",
@@ -131,19 +120,16 @@
       "video",
       "YouTube or similar embeds"
     ],
-
     "layout": {
       "type": "sequential editorial flow",
       "grid_relationship": "When multiple images appear together, reuse the modular grid logic where practical.",
       "complex_gallery_system": false
     },
-
-    "related_content": false
+    "related_content": false,
+    "digest": "One homepage tile opens one issue: selected links, short summaries, optional images and source attribution. No separate page per external selection."
   },
-
   "content_model": {
     "goal": "Separate content/data from presentation components.",
-
     "example": {
       "title": "Project Name",
       "slug": "project-name",
@@ -152,7 +138,6 @@
       "cols": 2,
       "rows": 1
     },
-
     "requirements": [
       "Adding a new item should be straightforward.",
       "Changing module size should require editing simple metadata.",
@@ -160,12 +145,10 @@
       "Content structure must be easy for a non-expert owner to understand."
     ]
   },
-
   "technology": {
     "decision_status": "Implemented: Astro + MDX + native CSS Grid, static GitHub Pages hosting",
-
+    "prototype_status": "Approved layouts integrated into shared Astro/MDX templates; publication uses the existing GitHub Pages deployment.",
     "preferred_candidate": "Astro + Markdown/MDX + CSS Grid",
-
     "reason_for_candidate": [
       "content-heavy static website",
       "very little client-side JavaScript required",
@@ -174,23 +157,17 @@
       "no database required",
       "no CMS required"
     ],
-
     "instruction": "Keep the existing static implementation simple. Content is manually authored in MDX; no CMS or new framework is needed for this MVP.",
-
     "dependencies": "Minimize dependencies."
   },
-
   "responsive": {
     "wide_desktop": "approximately 8 columns",
     "desktop": "approximately 6 columns",
     "tablet": "approximately 4 columns",
     "mobile": "1-2 columns",
-
     "mobile_rule": "Simplify the composition into a readable vertical flow.",
-
     "horizontal_scroll": false
   },
-
   "design": {
     "direction": [
       "Swiss",
@@ -199,7 +176,6 @@
       "editorial",
       "slightly brutal"
     ],
-
     "priorities": [
       "structure",
       "typography",
@@ -207,7 +183,6 @@
       "function",
       "clarity"
     ],
-
     "avoid": [
       "decorative UI effects",
       "glassmorphism",
@@ -218,7 +193,6 @@
       "heavy design systems"
     ]
   },
-
   "explicitly_out_of_scope": [
     "CMS",
     "admin panel",
@@ -237,7 +211,6 @@
     "animation framework",
     "perfect grid packing algorithm"
   ],
-
   "acceptance_criteria": [
     "The homepage feels like one modular spatial system rather than a standard portfolio template.",
     "The grid responds approximately from 1-2 columns on mobile to 8 columns on wide screens.",

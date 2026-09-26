@@ -92,7 +92,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
                 {node.items.length > 0 ? (
                   node.items.map((item) => (
                     <li>
-                      <a href={`${import.meta.env.BASE_URL}${item.id}/`}>{item.data.title}</a>
+                      <a href={node.slug === "images" ? `${import.meta.env.BASE_URL}?filter=images` : `${import.meta.env.BASE_URL}${item.id}/`}>{item.data.title}</a>
                     </li>
                   ))
                 ) : (

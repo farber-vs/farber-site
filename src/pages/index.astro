@@ -3,71 +3,14 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import FilterBar from "../components/FilterBar.astro";
 import HomepageGrid from "../components/HomepageGrid.astro";
-import { categories } from "../config/categories";
-
-const items = (await getCollection("items")).sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
-);
-
-const filterSlugs = categories.map((category) => category.slug);
+import ImageViewer from "../components/ImageViewer.astro";
+import "../styles/home.css";
+const items = (await getCollection("items")).sort((a,b) => b.data.date.getTime()-a.data.date.getTime() || a.id.localeCompare(b.id));
 ---
-
 <BaseLayout>
+  <a class="skip-link" href="#main">Skip to content</a>
   <FilterBar />
   <HomepageGrid items={items} />
-
-  <script define:vars={{ filterSlugs }}>
-    const validFilters = new Set(["show-all", ...filterSlugs]);
-    const links = [...document.querySelectorAll("[data-filter-link]")];
-    const cards = [...document.querySelectorAll("[data-filterable]")];
-
-    function readFilter() {
-      const value = new URLSearchParams(window.location.search).get("filter");
-      return value && validFilters.has(value) ? value : "show-all";
-    }
-
-    function applyFilter(filter) {
-      cards.forEach((card) => {
-        card.hidden = filter !== "show-all" && card.dataset.category !== filter;
-      });
-
-      links.forEach((link) => {
-        if (link.dataset.filterLink === filter) {
-          link.setAttribute("aria-current", "page");
-        } else {
-          link.removeAttribute("aria-current");
-        }
-      });
-    }
-
-    links.forEach((link) => {
-      link.addEventListener("click", (event) => {
-        if (
-          event.button !== 0 ||
-          event.metaKey ||
-          event.ctrlKey ||
-          event.shiftKey ||
-          event.altKey
-        ) {
-          return;
-        }
-
-        event.preventDefault();
-        const filter = link.dataset.filterLink;
-        const url = new URL(window.location.href);
-
-        if (filter === "show-all") {
-          url.searchParams.delete("filter");
-        } else {
-          url.searchParams.set("filter", filter);
-        }
-
-        window.history.pushState({ filter }, "", url);
-        applyFilter(filter);
-      });
-    });
-
-    window.addEventListener("popstate", () => applyFilter(readFilter()));
-    applyFilter(readFilter());
-  </script>
+  <ImageViewer />
+  <script>import "../scripts/filters.js";</script>
 </BaseLayout>

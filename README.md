@@ -22,21 +22,28 @@ site's root-relative links and assets correctly.
 
 ## Current content MVP
 
+The approved layouts are integrated into the Astro site. Local design studies in
+`prototypes/` are excluded from Git and publication; the durable design rules
+live in [docs/editorial-layout.md](docs/editorial-layout.md).
+
 - `/`: modular archive, category filters, and persistent About and Contacts cards.
 - `/{category}/{slug}/`: editorial pages authored in MDX.
 - `/about/` and `/contacts/`: static pages.
 - `/farber/`: a separate experimental navigation map.
 
-The archive currently has two categories: Projects and Articles. It includes
-the Schiffman Supplies visual-identity case and «Граница исчезла но осталась
-внутри», with the supplied English translation available through a native
-disclosure. About introduces Alexey Farber's design and art practice. Contacts
-contains only `farbervs@gmail.com`.
+The archive has Projects, Articles, Images and Digest. It includes Schiffman
+Supplies with the supplied animated logo, an English/Russian essay, three
+owner-supplied photographs, and Digest 001 with short summaries and external
+source links (no third-party images). About introduces Alexey Farber's practice;
+Contacts contains only `farbervs@gmail.com`.
 
 Edit the current content here:
 
 - `src/content/items/projects/schiffman-supplies/index.mdx`
 - `src/content/items/articles/granitsa-ischezla-no-ostalas-vnutri/index.mdx`
+- `src/content/items/articles/granitsa-ischezla-no-ostalas-vnutri/ru.mdx`
+- `src/content/items/images/image-02/index.mdx` (also image-11 and image-19)
+- `src/content/items/digest/issue-001/index.mdx`
 - `src/content/static/about.mdx`
 - `src/content/static/contacts.mdx`
 
@@ -175,3 +182,69 @@ pnpm preview
 
 After a production build, run `node scripts/check-content.mjs` to check page
 and asset links, the configured filters, core content and the contact address.
+
+## Article languages
+
+Keep the English article in `index.mdx`. Add `ru.mdx` alongside it with
+`title`, `description`, and `language: ru` frontmatter and the Russian body.
+Do not duplicate cover, spans or publication date in the translation.
+The shared template automatically exposes EN | RU; Russian lives at
+`/articles/{slug}/ru/`. Both versions work without JavaScript.
+
+Optional article source metadata is separate from the site's publication date:
+
+```yaml
+source:
+  date: August 19
+  publication: Science Advances
+  url: https://example.com/original-paper
+  label: Original paper
+```
+
+For the two essay accents, use `<p class="essay-metaphor">…</p>` (italic 200)
+and `<p class="essay-question">…</p>` (dense grotesk). Keep ordinary paragraphs
+separated by blank lines.
+
+## Images
+
+Create `src/content/items/images/{slug}/index.mdx` with no body:
+
+```yaml
+---
+title: Image 02
+date: 2026-09-26
+cover: ./cover.webp
+fullImage: ./photo.webp
+alt: Describe what the photograph shows.
+cols: 2
+rows: 2
+---
+```
+
+Keep an approximately 800px thumbnail and a 2200px full image beside it.
+No internal page is generated. The tile opens a native dialog with
+Close/Escape/backdrop dismissal, focus restoration and loading/error messages.
+Without JavaScript, the link opens the full image directly. Images have no
+visible title overlay. Publication date determines archive order, not when
+the photograph was taken.
+
+## Digest and case layouts
+
+Digest issues live in `src/content/items/digest/{slug}/index.mdx`.
+`displayTitle` optionally supplies the short visible issue title;
+`title` remains the full archive/browser title. Each selection uses a
+`digest-entry` section with a heading and `digest-copy`: a short paragraph,
+a `source-link`, and optional `digest-tags`. Use the existing issue as the
+small editing example. Publish original short summaries with attribution,
+not copied articles. Do not add third-party images without verified permission.
+
+The Schiffman MDX uses small explicit groups (`story-split`, `identity-pair`,
+`pattern-pair`, `applications`) and `CaseImage` for prepared local images.
+These are layout helpers, not a required sequence for every project.
+`CaseImage` takes `src`, `alt`, optional `caption`, `frame` and `priority`.
+Keep clean artwork exports alongside the content; do not carry slide crop
+coordinates into MDX. `LogoMotion` takes a poster URL and animation URL,
+with a static reduced-motion/no-JS fallback.
+
+When adding a category also set its position in `src/config/farber-map.ts`
+if it should appear in the separate experimental map.

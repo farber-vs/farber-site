@@ -18,6 +18,8 @@ export const mapPositions: Record<
 > = {
   projects: { x: 42, y: 58, width: 320 },
   articles: { x: 1134, y: 662, width: 322 },
+  images: { x: 1134, y: 58, width: 322 },
+  digest: { x: 42, y: 662, width: 320 },
 };
 
 export const mapCenter = { x: 750, y: 450 };

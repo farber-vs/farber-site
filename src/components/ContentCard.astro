@@ -2,30 +2,16 @@
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import { parseItemId } from "../lib/content";
-
-interface Props {
-  entry: CollectionEntry<"items">;
-}
-
-const { entry } = Astro.props;
+interface Props { entry: CollectionEntry<"items">; priority?: boolean; }
+const { entry, priority = false } = Astro.props;
 const { category, slug } = parseItemId(entry.id);
+const isImage = category === "images";
+if (isImage && (!entry.data.fullImage || !entry.data.alt)) throw new Error(`${entry.id}: Images needs fullImage and descriptive alt.`);
+const href = isImage ? entry.data.fullImage!.src : `${import.meta.env.BASE_URL}${category}/${slug}/`;
 ---
-
-<article
-  class="content-card"
-  data-filterable
-  data-category={category}
-  data-cols={entry.data.cols}
-  data-rows={entry.data.rows}
->
-  <a href={`${import.meta.env.BASE_URL}${category}/${slug}/`} aria-label={entry.data.title}>
-    <Image
-      src={entry.data.cover}
-      alt=""
-      widths={[360, 720, 1080, 1440]}
-      sizes="(max-width: 479px) 100vw, (max-width: 767px) 50vw, 50vw"
-      loading="lazy"
-    />
-    <span>{entry.data.title}</span>
+<article class:list={["archive-card", "content-card", {"image-card":isImage}]} data-filterable data-category={category} data-cols={entry.data.cols} data-rows={entry.data.rows}>
+  <a href={href} aria-label={isImage ? `Open ${entry.data.title}` : entry.data.title} data-image-link={isImage || undefined} data-image-caption={isImage ? entry.data.title : undefined}>
+    <Image src={entry.data.cover} alt={isImage ? entry.data.alt! : ""} widths={[360,720,1080,1440]} sizes="(max-width:479px) 100vw, 50vw" loading={priority ? "eager" : "lazy"} />
+    {!isImage && <span class="card-title">{entry.data.title}</span>}
   </a>
 </article>
